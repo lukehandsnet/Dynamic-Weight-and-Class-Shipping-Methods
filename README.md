@@ -39,6 +39,80 @@ The plugin settings can be accessed from the WordPress admin panel where three w
 - **Heavy Weight Limit:** Set the maximum weight for the heavy weight class.
 
 Each weight class can be associated with a delivery class (e.g., standard, express, freight).
+## To-Do List: Shipping Class By Cart Weight WordPress Plugin
+
+#### Development & Code Refactoring
+- [ ] **Split Code into Files:** Modularize the existing code for enhanced readability and maintenance.
+    - [ ] Create separate PHP files for functions related to settings, admin menu, and shipping methods adjustments.
+    - [ ] Ensure all files are well-documented with comments for clarity and future reference.
+  
+- [ ] **Class-based Refactoring:** Transition function-based code to class-based structure to encapsulate related functionalities and promote OOP practices.
+  
+- [ ] **Security & Validation:** 
+    - [ ] Implement thorough data validation for settings inputs to prevent potential issues.
+    - [ ] Implement nonces for form submissions to enhance security.
+
+- [ ] **Code Optimization:** 
+    - [ ] Review and optimize loops and condition checks.
+    - [ ] Optimize data retrieval and storage methods.
+
+#### Feature Development
+- [ ] **Enhanced Weight Class Management:**
+    - [ ] Develop UI to dynamically add, edit, or remove weight classes.
+    - [ ] Allow for customization of delivery class names.
+
+- [ ] **Customer Notifications:**
+    - [ ] Implement customer notification/alert for shipping method adjustments based on weight.
+
+- [ ] **Localization:**
+    - [ ] Implement localization/internationalization practices to make the plugin translatable.
+
+- [ ] **Multi-shipment Handling:**
+    - [ ] Implement handling and calculation for shipments that may need to be split due to weight constraints.
+
+#### Testing
+- [ ] **Unit Testing:**
+    - [ ] Implement unit tests to validate all functionalities under various scenarios.
+    - [ ] Ensure accurate retrieval and application of shipping methods based on defined weight classes.
+
+- [ ] **Integration Testing:**
+    - [ ] Test compatibility with various versions of WordPress and WooCommerce.
+    - [ ] Test with various themes to ensure UI/UX consistency.
+
+- [ ] **User Testing:**
+    - [ ] Conduct user testing for UI/UX and usability validation.
+    - [ ] Gather feedback to identify areas for improvement or enhancement.
+
+#### Documentation & User Guide
+- [ ] **Plugin Documentation:**
+    - [ ] Create comprehensive documentation detailing setup, configuration, and troubleshooting.
+    - [ ] Include screenshots and step-by-step guides for various functionalities.
+
+- [ ] **Developer Documentation:**
+    - [ ] Detail development decisions, code structure, and extendability options for other developers.
+    - [ ] Ensure all code is well-commented and follows WordPress coding standards.
+
+#### Marketing & Release Preparation
+- [ ] **Website/Landing Page:**
+    - [ ] Create a landing page or website for the plugin to provide details, documentation, and download options.
+
+- [ ] **Promotion:**
+    - [ ] Create promotional material, blog posts, or news releases to announce the plugin.
+
+- [ ] **WordPress Repository Submission:**
+    - [ ] Prepare and submit the plugin to the WordPress plugin repository for wider accessibility.
+
+#### Continuous Improvement & Support
+- [ ] **User Feedback Collection:**
+    - [ ] Establish channels for collecting user feedback and reviews.
+
+- [ ] **Support:**
+    - [ ] Create support forums or channels to assist users with queries and issues.
+    - [ ] Develop a FAQ section based on encountered issues and queries.
+
+- [ ] **Updates & Maintenance:**
+    - [ ] Periodically review and update the plugin to ensure compatibility with the latest WordPress and WooCommerce versions.
+    - [ ] Implement enhancements and additional features based on user feedback.
 
 ## Author
 
