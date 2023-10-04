@@ -35,7 +35,7 @@ Each weight class can be associated with a delivery class (e.g., standard, expre
 ### Create Pipeline to update dev environment
 - [X] **Create Dev Branch** and enforce policies to only pull request into the dev branch.
 
-- [ ] **Create a pipeline** to update the dev environment when a merge is made to the dev branch.
+- [X] **Create a pipeline** to update the dev environment when a merge is made to the dev branch.
 #### Development & Code Refactoring
 - [X] **Split Code into Files:** Modularize the existing code for enhanced readability and maintenance.
     - [X] Create separate PHP files for functions related to settings, admin menu, and shipping methods adjustments.
