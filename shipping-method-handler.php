@@ -23,6 +23,7 @@ class Shipping_Method_Handler {
             if ($cart_weight <= $class['max_weight']) {
                 $selected_method = $class['delivery_class'];
                 break;
+                // TODO: allow for multiple classes
             }
         }
         
