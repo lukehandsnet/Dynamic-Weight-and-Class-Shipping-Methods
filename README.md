@@ -42,11 +42,11 @@ Each weight class can be associated with a delivery class (e.g., standard, expre
 ## To-Do List: Shipping Class By Cart Weight WordPress Plugin
 
 #### Development & Code Refactoring
-- [ ] **Split Code into Files:** Modularize the existing code for enhanced readability and maintenance.
-    - [ ] Create separate PHP files for functions related to settings, admin menu, and shipping methods adjustments.
+- [X] **Split Code into Files:** Modularize the existing code for enhanced readability and maintenance.
+    - [X] Create separate PHP files for functions related to settings, admin menu, and shipping methods adjustments.
     - [ ] Ensure all files are well-documented with comments for clarity and future reference.
   
-- [ ] **Class-based Refactoring:** Transition function-based code to class-based structure to encapsulate related functionalities and promote OOP practices.
+- [X] **Class-based Refactoring:** Transition function-based code to class-based structure to encapsulate related functionalities and promote OOP practices.
   
 - [ ] **Security & Validation:** 
     - [ ] Implement thorough data validation for settings inputs to prevent potential issues.
