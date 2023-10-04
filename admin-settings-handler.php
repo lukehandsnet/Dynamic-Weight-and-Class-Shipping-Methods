@@ -12,7 +12,6 @@ class Admin_Settings_Handler {
 
     public function add_admin_menu() {
         add_options_page('Adjust Shipping Methods', 'Adjust Shipping Methods', 'manage_options', 'adjust_shipping_methods', [$this, 'options_page']);
-        echo '<p>added options page</p>';
     }
 
     public function settings_init() {
@@ -28,7 +27,6 @@ class Admin_Settings_Handler {
         $this->add_settings_field('asm_light_weight', __('Light Weight Limit', 'adjust-shipping-methods'), 'render_light_weight_setting');
         $this->add_settings_field('asm_medium_weight', __('Medium Weight Limit', 'adjust-shipping-methods'), 'render_medium_weight_setting');
         $this->add_settings_field('asm_heavy_weight', __('Heavy Weight Limit', 'adjust-shipping-methods'), 'render_heavy_weight_setting');
-        echo '<p>added settings fields</p>';
     }
 
     private function add_settings_field($id, $title, $callback) {
@@ -78,4 +76,4 @@ class Admin_Settings_Handler {
     }
 }
 
-new Admin_Settings_Handler();
+
