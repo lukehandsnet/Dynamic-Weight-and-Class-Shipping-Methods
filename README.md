@@ -23,14 +23,6 @@ This WordPress plugin adjusts available shipping methods based on the cart weigh
 
 Once installed and activated, the plugin will automatically adjust the available shipping methods based on the total weight of the cart. The settings page allows the admin to define weight limits for different shipping methods.
 
-## Files Structure
-
-The plugin is structured into multiple files for modularity:
-
-1. **shipping-class-by-cart-weight.php:** The main plugin file that includes other necessary files and initializes the plugin.
-2. **admin-menu-settings.php:** Handles the admin menu creation, settings registration, and renders the settings page.
-3. **shipping-methods.php:** Contains the logic to adjust the available shipping methods based on the cart weight.
-
 ## Settings
 
 The plugin settings can be accessed from the WordPress admin panel where three weight classes can be defined:
@@ -40,7 +32,10 @@ The plugin settings can be accessed from the WordPress admin panel where three w
 
 Each weight class can be associated with a delivery class (e.g., standard, express, freight).
 ## To-Do List: Shipping Class By Cart Weight WordPress Plugin
+### Create Pipeline to update dev environment
+- [ ] **Create Dev Branch** and enforce policies to only pull request into the dev branch.
 
+- [ ] **Create a pipeline** to update the dev environment when a merge is made to the dev branch.
 #### Development & Code Refactoring
 - [X] **Split Code into Files:** Modularize the existing code for enhanced readability and maintenance.
     - [X] Create separate PHP files for functions related to settings, admin menu, and shipping methods adjustments.
