@@ -47,6 +47,10 @@ class Admin_Settings_Handler {
             settings_fields('pluginPage');
             do_settings_sections('pluginPage');
             submit_button();
+
+            // Display shipping methods and classes.
+            $this->display_shipping_methods();
+            $this->display_shipping_classes();
             ?>
         </form>
         <?php
@@ -73,6 +77,26 @@ class Admin_Settings_Handler {
         ?>
         <input type='text' name='asm_settings[<?php echo $name; ?>]' value='<?php echo $options[$name]; ?>'>
         <?php
+    }
+
+    public function display_shipping_methods() {
+        $shipping_methods = \WC()->shipping->get_shipping_methods();
+        echo '<h3>Available Shipping Methods</h3>';
+        echo '<ul>';
+        foreach ($shipping_methods as $method) {
+            echo '<li>' . esc_html($method->get_title()) . '</li>';
+        }
+        echo '</ul>';
+    }
+
+    public function display_shipping_classes() {
+        $shipping_classes = \WC()->shipping->get_shipping_classes();
+        echo '<h3>Available Shipping Classes</h3>';
+        echo '<ul>';
+        foreach ($shipping_classes as $class) {
+            echo '<li>' . esc_html($class->name) . '</li>';
+        }
+        echo '</ul>';
     }
 }
 
