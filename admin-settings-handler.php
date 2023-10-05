@@ -69,7 +69,7 @@ class Admin_Settings_Handler {
             echo '<ul>';
             
             foreach( $zone['shipping_methods'] as $method ) {
-                error_log(print_r($method, true));
+                //error_log(print_r($method, true));
                 
                 $saved_min_weight = $saved_settings['min_weight'][$method->instance_id] ?? '';
                 $saved_max_weight = $saved_settings['max_weight'][$method->instance_id] ?? '';
