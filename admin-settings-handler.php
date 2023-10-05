@@ -69,6 +69,8 @@ class Admin_Settings_Handler {
             echo '<ul>';
             
             foreach( $zone['shipping_methods'] as $method ) {
+                error_log(print_r($method, true));
+                error_log(print_r($method->id, true));
                 $saved_min_weight = $saved_settings['min_weight'][$method->title] ?? '';
                 $saved_max_weight = $saved_settings['max_weight'][$method->title] ?? '';
 
@@ -115,4 +117,14 @@ class Admin_Settings_Handler {
         error_log(print_r($data, true));
     }
     
+}
+
+function get_title_shipping_method_from_method_id( $method_rate_id = '' ){
+    if( ! empty( $method_rate_id ) ){
+        $method_key_id = str_replace( ':', '_', $method_rate_id ); // Formating
+        $option_name = 'woocommerce_'.$method_key_id.'_settings'; // Get the complete option slug
+        return get_option( $option_name, true )['title']; // Get the title and return it
+    } else {
+        return false;
+    }
 }
