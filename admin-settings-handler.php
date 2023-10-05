@@ -51,31 +51,50 @@ class Admin_Settings_Handler {
 
     public function display_shipping_methods() {
         $shipping_zones = \WC_Shipping_Zones::get_zones();
+        
         echo '<h3>Available Shipping Methods</h3>';
-        $stored_settings = get_option('asm_settings', []);
-    
-        foreach ($shipping_zones as $zone) {
-            echo '<strong>' . esc_html($zone['zone_name']) . '</strong><ul>';
-            foreach ($zone['shipping_methods'] as $method) {
-                $min_weight = $stored_settings[$method->id]['min_weight'] ?? '';
-                $max_weight = $stored_settings[$method->id]['max_weight'] ?? '';
-                
+        
+        foreach( $shipping_zones as $zone ) {
+            echo '<div class="shipping-zone">';
+            echo '<strong>' . esc_html($zone['zone_name']) . '</strong>';
+            echo '<ul>';
+            
+            foreach( $zone['shipping_methods'] as $method ) {
                 echo '<li>';
-                echo '<label>' . esc_html($method->title) . '</label>';
-                echo ' - Min Weight: <input type="text" name="asm_settings[' . esc_attr($method->id) . '][min_weight]" value="' . esc_attr($min_weight) . '">';
-                echo ' - Max Weight: <input type="text" name="asm_settings[' . esc_attr($method->id) . '][max_weight]" value="' . esc_attr($max_weight) . '">';
+                echo '<div class="shipping-method">';
+                echo '<strong>' . esc_html($method->title) . '</strong> - ';
+                echo 'Min Weight: <input type="text" name="min_weight[' . esc_attr($method->id) . ']" value="" /> ';
+                echo 'Max Weight: <input type="text" name="max_weight[' . esc_attr($method->id) . ']" value="" />';
+                echo '</div>';
                 
                 // Display available classes with checkboxes
-                $shipping_classes = \WC()->shipping->get_shipping_classes();
-                foreach ($shipping_classes as $class) {
-                    $is_checked = in_array($class->term_id, $stored_settings[$method->id]['classes'] ?? []) ? 'checked' : '';
-                    echo '<br>&nbsp;&nbsp;<input type="checkbox" name="asm_settings[' . esc_attr($method->id) . '][classes][]" value="' . esc_attr($class->term_id) . '" ' . $is_checked . '> ' . esc_html($class->name);
-                }
+                $this->display_classes_with_checkboxes($method->id);
+                
                 echo '</li>';
             }
             echo '</ul>';
+            echo '</div>';
         }
     }
+
+    public function display_classes_with_checkboxes($method_id) {
+        $shipping_classes = \WC()->shipping->get_shipping_classes();
+        
+        echo '<div class="shipping-classes">';
+        echo '<strong>Available Classes:</strong> ';
+        echo '<ul>';
+        
+        foreach ($shipping_classes as $class) {
+            echo '<li>';
+            echo '<input type="checkbox" id="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '" name="shipping_classes[' . esc_attr($method_id) . '][]" value="' . esc_attr($class->term_id) . '" />';
+            echo '<label for="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '">' . esc_html($class->name) . '</label>';
+            echo '</li>';
+        }
+        echo '</ul>';
+        echo '</div>';
+    }
+    
+    
 }
 
 
