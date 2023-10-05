@@ -6,36 +6,30 @@ class Shipping_Method_Handler {
         add_filter('woocommerce_package_rates', [$this, 'adjust_shipping_methods'], 10, 2);
     }
 
-    function adjust_shipping_methods($available_shipping_methods) {
+    function adjust_shipping_methods($available_shipping_methods, $package) {
         global $woocommerce;
         $cart_weight = $woocommerce->cart->cart_contents_weight;
         
-        $options = get_option('asm_settings', array('asm_light_weight' => 5, 'asm_medium_weight' => 10, 'asm_heavy_weight' => 15));
-        
-        $weight_classes = array(
-            'light' => array('max_weight' => $options['asm_light_weight'], 'delivery_class' => 'standard'),
-            'medium' => array('max_weight' => $options['asm_medium_weight'], 'delivery_class' => 'express'),
-            'heavy' => array('max_weight' => $options['asm_heavy_weight'], 'delivery_class' => 'freight')
-        );
-        
-        $selected_method = '';
-        foreach ($weight_classes as $class) {
-            if ($cart_weight <= $class['max_weight']) {
-                $selected_method = $class['delivery_class'];
-                break;
-                // TODO: allow for multiple classes
-            }
-        }
+        // Retrieve the saved settings
+        $saved_settings = get_option('your_option_name', []);
         
         foreach ($available_shipping_methods as $method_id => $method) {
-            $matched = false;
-            foreach ($weight_classes as $class_name => $class) {
-                if (strpos($method->get_label(), $class_name) !== false && $class['delivery_class'] === $selected_method) {
-                    $matched = true;
-                    break;
-                }
-            }
-            if (!$matched) {
+            // Use $method->title if you used titles as keys, or adapt accordingly
+            $min_weight = $saved_settings['min_weight'][$method->title] ?? null;
+            $max_weight = $saved_settings['max_weight'][$method->title] ?? null;
+            $allowed_classes = $saved_settings['shipping_classes'][$method->title] ?? [];
+            
+            // Check weight conditions
+            $is_weight_valid = 
+                (is_null($min_weight) || $cart_weight >= $min_weight) && 
+                (is_null($max_weight) || $cart_weight <= $max_weight);
+            
+            // Check if the cart’s shipping class is within the allowed classes for this method
+            $is_class_valid = empty($allowed_classes) || 
+                              in_array($package['contents'][0]['data']->get_shipping_class_id(), $allowed_classes);
+            
+            // If either condition is not met, unset the shipping method
+            if (!$is_weight_valid || !$is_class_valid) {
                 unset($available_shipping_methods[$method_id]);
             }
         }
