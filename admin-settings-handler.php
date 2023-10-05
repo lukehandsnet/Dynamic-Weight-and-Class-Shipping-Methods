@@ -23,21 +23,8 @@ class Admin_Settings_Handler {
             [$this, 'settings_section_callback'],
             'pluginPage'
         );
-
-        $this->add_settings_field('asm_light_weight', __('Light Weight Limit', 'adjust-shipping-methods'), 'render_light_weight_setting');
-        $this->add_settings_field('asm_medium_weight', __('Medium Weight Limit', 'adjust-shipping-methods'), 'render_medium_weight_setting');
-        $this->add_settings_field('asm_heavy_weight', __('Heavy Weight Limit', 'adjust-shipping-methods'), 'render_heavy_weight_setting');
     }
 
-    private function add_settings_field($id, $title, $callback) {
-        add_settings_field(
-            $id,
-            $title,
-            [$this, $callback],
-            'pluginPage',
-            'asm_pluginPage_section'
-        );
-    }
 
     public function options_page() {
         ?>
@@ -46,38 +33,21 @@ class Admin_Settings_Handler {
             <?php
             settings_fields('pluginPage');
             do_settings_sections('pluginPage');
-            submit_button();
-
-            // Display shipping methods and classes.
+            
+            // Display shipping methods and classes directly.
             $this->display_shipping_methods();
-            $this->display_shipping_classes();
+            submit_button();
             ?>
         </form>
         <?php
     }
+    
 
     public function settings_section_callback() {
         echo '<p>' . __('This section is for setting up the weight limits for different shipping methods.', 'adjust-shipping-methods') . '</p>';
     }
 
-    public function render_light_weight_setting() {
-        $this->render_input('asm_light_weight', 5);
-    }
-
-    public function render_medium_weight_setting() {
-        $this->render_input('asm_medium_weight', 10);
-    }
-
-    public function render_heavy_weight_setting() {
-        $this->render_input('asm_heavy_weight', 15);
-    }
-
-    private function render_input($name, $default = '') {
-        $options = get_option('asm_settings', array($name => $default));
-        ?>
-        <input type='text' name='asm_settings[<?php echo $name; ?>]' value='<?php echo $options[$name]; ?>'>
-        <?php
-    }
+    
 
     public function display_shipping_methods() {
         $shipping_zones = \WC_Shipping_Zones::get_zones();
@@ -105,17 +75,6 @@ class Admin_Settings_Handler {
             }
             echo '</ul>';
         }
-    }
-    
-
-    public function display_shipping_classes() {
-        $shipping_classes = \WC()->shipping->get_shipping_classes();
-        echo '<h3>Available Shipping Classes</h3>';
-        echo '<ul>';
-        foreach ($shipping_classes as $class) {
-            echo '<li>' . esc_html($class->name) . '</li>';
-        }
-        echo '</ul>';
     }
 }
 
