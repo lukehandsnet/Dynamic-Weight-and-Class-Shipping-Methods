@@ -15,8 +15,8 @@ class Shipping_Method_Handler {
         
         foreach ($available_shipping_methods as $method_id => $method) {
             // Use $method->title if you used titles as keys, or adapt accordingly
-            $min_weight = $saved_settings['min_weight'][$method->title] ?? null;
-            $max_weight = $saved_settings['max_weight'][$method->title] ?? null;
+            $min_weight = $saved_settings['min_weight'][$method->instance_id] ?? null;
+            $max_weight = $saved_settings['max_weight'][$method->instance_id] ?? null;
             $allowed_classes = $saved_settings['shipping_classes'][$method->title] ?? [];
             
             // Check weight conditions
