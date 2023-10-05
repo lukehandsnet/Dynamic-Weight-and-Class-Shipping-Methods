@@ -39,8 +39,8 @@ class Admin_Settings_Handler {
             // Nonce field
             wp_nonce_field('save_your_settings', 'your_settings_nonce_name');
             
-            // settings_fields('pluginPage');
-            // do_settings_sections('pluginPage');
+            settings_fields('pluginPage');
+            do_settings_sections('pluginPage');
             
             // Display shipping methods and classes directly.
             $this->display_shipping_methods();
