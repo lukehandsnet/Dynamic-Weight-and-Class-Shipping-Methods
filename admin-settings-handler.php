@@ -103,7 +103,32 @@ class Admin_Settings_Handler {
         echo '</ul>';
         echo '</div>';
     }
+
+    private function save_settings($data) {
+        // Validate and sanitize $data
+        // Assume $data is an associative array with keys 'min_weight' and 'max_weight' for each shipping method and zone
+        
+        $sanitized_data = [];
+    
+        foreach ($data as $zone => $methods) {
+            if (!is_array($methods)) continue; // Ensure methods is an array
+    
+            foreach ($methods as $method => $weights) {
+                // Example validation: Ensure weights are numeric
+                if (!is_numeric($weights['min_weight']) || !is_numeric($weights['max_weight'])) {
+                    // Handle validation error, e.g., show an admin error message, log, etc.
+                    add_settings_error('your_settings', 'invalid_weight', "Invalid weights for $method in $zone", 'error');
+                    return; // Stop processing
+                }
+                
+                // Example sanitization: Ensure weights are float values
+                $sanitized_data[$zone][$method]['min_weight'] = floatval($weights['min_weight']);
+                $sanitized_data[$zone][$method]['max_weight'] = floatval($weights['max_weight']);
+            }
+        }
+    
+        // Save settings using update_option
+        update_option('your_option_name', $sanitized_data);
+    }
     
 }
-
-
