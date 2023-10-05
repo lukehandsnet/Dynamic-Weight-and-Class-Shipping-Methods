@@ -105,23 +105,9 @@ class Admin_Settings_Handler {
     }
 
     private function save_settings($data) {
-        // Validate and sanitize $data
-        // Assume $data is an associative array with keys 'min_weight' and 'max_weight' for each shipping method and zone
         
-        $sanitized_data = [];
-    
-        foreach ($data as $zone => $methods) {
-            if (!is_array($methods)) continue; // Ensure methods is an array
-    
-            foreach ($methods as $method => $weights) {
-                // Example sanitization: Ensure weights are float values
-                $sanitized_data[$zone][$method]['min_weight'] = floatval($weights['min_weight']);
-                $sanitized_data[$zone][$method]['max_weight'] = floatval($weights['max_weight']);
-            }
-        }
-    
         // Save settings using update_option
-        update_option('your_option_name', $sanitized_data);
+        update_option('your_option_name', $data);
     }
     
 }
