@@ -27,20 +27,30 @@ class Admin_Settings_Handler {
 
 
     public function options_page() {
+        // Check if form is submitted and nonce is valid
+        if (isset($_POST['your_settings_nonce_name']) && wp_verify_nonce($_POST['your_settings_nonce_name'], 'save_your_settings')) {
+            // Process and save settings
+            $this->save_settings($_POST);
+        }
         ?>
-        <form action='options.php' method='post'>
+        <form action='' method='post'>
             <h2>Adjust Shipping Methods</h2>
             <?php
-            settings_fields('pluginPage');
-            do_settings_sections('pluginPage');
+            // Nonce field
+            wp_nonce_field('save_your_settings', 'your_settings_nonce_name');
+            
+            // settings_fields('pluginPage');
+            // do_settings_sections('pluginPage');
             
             // Display shipping methods and classes directly.
             $this->display_shipping_methods();
+            
             submit_button();
             ?>
         </form>
         <?php
     }
+    
     
 
     public function settings_section_callback() {
@@ -93,7 +103,6 @@ class Admin_Settings_Handler {
         echo '</ul>';
         echo '</div>';
     }
-    
     
 }
 
