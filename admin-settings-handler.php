@@ -70,15 +70,15 @@ class Admin_Settings_Handler {
             
             foreach( $zone['shipping_methods'] as $method ) {
                 error_log(print_r($method, true));
-                error_log(print_r($method->id, true));
-                $saved_min_weight = $saved_settings['min_weight'][$method->title] ?? '';
-                $saved_max_weight = $saved_settings['max_weight'][$method->title] ?? '';
+                
+                $saved_min_weight = $saved_settings['min_weight'][$method->instance_id] ?? '';
+                $saved_max_weight = $saved_settings['max_weight'][$method->instance_id] ?? '';
 
                 echo '<li>';
                 echo '<div class="shipping-method">';
                 echo '<strong>' . esc_html($method->title) . '</strong> - ';
-                echo 'Min Weight: <input type="text" name="min_weight[' . esc_attr($method->title) . ']" value="' . esc_attr($saved_min_weight) . '" /> ';
-                echo 'Max Weight: <input type="text" name="max_weight[' . esc_attr($method->title) . ']" value="' . esc_attr($saved_max_weight) . '" />';
+                echo 'Min Weight: <input type="text" name="min_weight[' . esc_attr($method->instance_id) . ']" value="' . esc_attr($saved_min_weight) . '" /> ';
+                echo 'Max Weight: <input type="text" name="max_weight[' . esc_attr($method->instance_id) . ']" value="' . esc_attr($saved_max_weight) . '" />';
                 echo '</div>';
                 
                 // Display available classes with checkboxes
