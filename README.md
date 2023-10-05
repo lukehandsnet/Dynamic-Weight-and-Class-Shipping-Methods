@@ -45,16 +45,16 @@ Each weight class can be associated with a delivery class (e.g., standard, expre
   
 - [ ] **Security & Validation:** 
     - [ ] Implement thorough data validation for settings inputs to prevent potential issues.
-    - [ ] Implement nonces for form submissions to enhance security.
+    - [X] Implement nonces for form submissions to enhance security.
 
 - [ ] **Code Optimization:** 
     - [ ] Review and optimize loops and condition checks.
-    - [ ] Optimize data retrieval and storage methods.
+    - [X] Optimize data retrieval and storage methods.
 
 #### Feature Development
 - [ ] **Enhanced Weight Class Management:**
-    - [ ] Develop UI to dynamically add, edit, or remove weight classes.
-    - [ ] Allow for customization of delivery class names.
+    - [X] Develop UI to dynamically add, edit, or remove weight classes.
+    - [x] Allow for customization of delivery class names.
 
 - [ ] **Customer Notifications:**
     - [ ] Implement customer notification/alert for shipping method adjustments based on weight.
