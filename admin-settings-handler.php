@@ -80,7 +80,7 @@ class Admin_Settings_Handler {
                 echo '</div>';
                 
                 // Display available classes with checkboxes
-                //$this->display_classes_with_checkboxes($method->id);
+                $this->display_classes_with_checkboxes($method->id);
                 
                 echo '</li>';
             }
