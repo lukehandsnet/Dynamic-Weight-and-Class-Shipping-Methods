@@ -80,7 +80,7 @@ class Admin_Settings_Handler {
                 echo '</div>';
                 
                 // Display available classes with checkboxes
-                $this->display_classes_with_checkboxes($method->id);
+                $this->display_classes_with_checkboxes($method->title);
                 
                 echo '</li>';
             }
@@ -98,9 +98,9 @@ class Admin_Settings_Handler {
         
         foreach ($shipping_classes as $class) {
              // Check if this class id is in the saved settings for this method
-            $is_checked = in_array($class->term_id, $saved_settings['shipping_classes'][$method_title] ?? []) ? 'checked' : '';
+            $is_checked = in_array($class->term_id, $saved_settings['shipping_classes'][$method_id] ?? []) ? 'checked' : '';
             echo '<li>';
-            echo '<input type="checkbox" id="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_title) . '" name="shipping_classes[' . esc_attr($method_title) . '][]" value="' . esc_attr($class->term_id) . '" ' . $is_checked . ' />';
+            echo '<input type="checkbox" id="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '" name="shipping_classes[' . esc_attr($method_id) . '][]" value="' . esc_attr($class->term_id) . '" ' . $is_checked . ' />';
             echo '<label for="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '">' . esc_html($class->name) . '</label>';
             echo '</li>';
         }
