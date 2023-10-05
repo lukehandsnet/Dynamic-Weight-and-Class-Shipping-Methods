@@ -112,6 +112,7 @@ class Admin_Settings_Handler {
         
         // Save settings using update_option
         update_option('your_option_name', $data);
+        error_log(print_r($data, true));
     }
     
 }
