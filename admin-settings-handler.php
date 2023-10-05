@@ -80,13 +80,15 @@ class Admin_Settings_Handler {
     }
 
     public function display_shipping_methods() {
-        $shipping_methods = \WC()->shipping->get_shipping_methods();
+        $shipping_zones = \WC_Shipping_Zones::get_zones();
         echo '<h3>Available Shipping Methods</h3>';
-        echo '<ul>';
-        foreach ($shipping_methods as $method) {
-            echo '<li>' . esc_html($method->get_title()) . '</li>';
+        foreach( $shipping_zones as $zone ) {
+            echo '<strong>' . esc_html($zone['zone_name']) . '</strong><ul>';
+            foreach( $zone['shipping_methods'] as $method ) {
+                echo '<li>' . esc_html($method->title) . '</li>';
+            }
+            echo '</ul>';
         }
-        echo '</ul>';
     }
 
     public function display_shipping_classes() {
