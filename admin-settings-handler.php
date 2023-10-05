@@ -57,24 +57,26 @@ class Admin_Settings_Handler {
         echo '<p>' . __('This section is for setting up the weight limits for different shipping methods.', 'adjust-shipping-methods') . '</p>';
     }
 
-    
-
     public function display_shipping_methods() {
         $shipping_zones = \WC_Shipping_Zones::get_zones();
-        
+        // Get saved settings
+        $saved_settings = get_option('your_option_name', []);
         echo '<h3>Available Shipping Methods</h3>';
         
         foreach( $shipping_zones as $zone ) {
             echo '<div class="shipping-zone">';
-            echo '<strong>' . esc_html($zone['zone_name']) . '</strong>';
+            echo '<strong>' . esc_html($zone['zone_name']) . '</strong></br>';
             echo '<ul>';
             
             foreach( $zone['shipping_methods'] as $method ) {
+                $saved_min_weight = $saved_settings['min_weight'][$method->id] ?? '';
+                $saved_max_weight = $saved_settings['max_weight'][$method->id] ?? '';
+
                 echo '<li>';
                 echo '<div class="shipping-method">';
                 echo '<strong>' . esc_html($method->title) . '</strong> - ';
-                echo 'Min Weight: <input type="text" name="min_weight[' . esc_attr($method->id) . ']" value="" /> ';
-                echo 'Max Weight: <input type="text" name="max_weight[' . esc_attr($method->id) . ']" value="" />';
+                echo 'Min Weight: <input type="text" name="min_weight[' . esc_attr($method->id) . ']" value="' . esc_attr($saved_min_weight) . '" /> ';
+                echo 'Max Weight: <input type="text" name="max_weight[' . esc_attr($method->id) . ']" value="' . esc_attr($saved_max_weight) . '" />';
                 echo '</div>';
                 
                 // Display available classes with checkboxes
@@ -89,14 +91,16 @@ class Admin_Settings_Handler {
 
     public function display_classes_with_checkboxes($method_id) {
         $shipping_classes = \WC()->shipping->get_shipping_classes();
-        
+        $saved_settings = get_option('your_option_name', []);
         echo '<div class="shipping-classes">';
         echo '<strong>Available Classes:</strong> ';
         echo '<ul>';
         
         foreach ($shipping_classes as $class) {
+             // Check if this class id is in the saved settings for this method
+            $is_checked = in_array($class->term_id, $saved_settings['shipping_classes'][$method_id] ?? []) ? 'checked' : '';
             echo '<li>';
-            echo '<input type="checkbox" id="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '" name="shipping_classes[' . esc_attr($method_id) . '][]" value="' . esc_attr($class->term_id) . '" />';
+            echo '<input type="checkbox" id="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '" name="shipping_classes[' . esc_attr($method_id) . '][]" value="' . esc_attr($class->term_id) . '" ' . $is_checked . ' />';
             echo '<label for="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '">' . esc_html($class->name) . '</label>';
             echo '</li>';
         }
