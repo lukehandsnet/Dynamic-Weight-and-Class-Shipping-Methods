@@ -1,111 +1,71 @@
-# Shipping Class By Cart Weight WordPress Plugin
+# Dynamic Weight and Class Shipping Methods WordPress Plugin
 
-**Status: Work In Progress - Infant Stage**
+**Status: Work In Progress**
 
-This WordPress plugin adjusts available shipping methods based on the cart weight in a WooCommerce store. It offers flexibility to manage different weight classes and to assign corresponding delivery classes. It allows admins to easily set weight limits for different shipping methods.
+## Description
+
+Dynamic Weight and Class Shipping Methods is a WooCommerce plugin designed to provide a dynamic and adaptable shipping system based on the cart's total weight and the assigned shipping classes. It grants administrators the capacity to define the availability and restrictions of shipping methods, thereby ensuring accurate and optimized shipping options tailored to various cart conditions and logistical prerequisites.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Files Structure](#files-structure)
 - [Settings](#settings)
+- [To-Do List](#to-do-list)
 - [Author](#author)
 - [License](#license)
+- [Acknowledgements](#acknowledgements)
 
 ## Installation
 
-1. Download the plugin files.
-2. Extract the plugin files to your `wp-content/plugins` directory.
-3. Activate the plugin through the 'Plugins' menu in WordPress.
+1. **Download**: Obtain the plugin files from the repository or release.
+2. **Extract**: Move the plugin files to your `wp-content/plugins` directory.
+3. **Activate**: Enable the plugin via the 'Plugins' menu in WordPress.
 
 ## Usage
 
-Once installed and activated, the plugin will automatically adjust the available shipping methods based on the total weight of the cart. The settings page allows the admin to define weight limits for different shipping methods.
+Post-activation, the plugin autonomously adjusts shipping method availability based on the cart’s weight. Administrators can manipulate settings to set min/max weight and designate acceptable shipping classes for each shipping method, providing a flexible and robust shipping method management system that responds dynamically to various cart conditions.
 
 ## Settings
 
+Configure distinct weight conditions and allowed shipping classes for each available shipping method through the settings page, allowing you to:
 
+- Set minimum and maximum weight thresholds for each shipping method.
+- Assign allowable shipping classes for each method.
+- Enable/Disable shipping methods as per specific conditions.
 
-## To-Do List: Shipping Class By Cart Weight WordPress Plugin
-### Create Pipeline to update dev environment
-- [X] **Create Dev Branch** and **enforce policies** to only pull request into the dev branch.
+## To-Do List
 
-- [X] **Create a pipeline** to update the dev environment when a merge is made to the dev branch.
-#### Development & Code Refactoring
-- [X] **Split Code into Files:** Modularize the existing code for enhanced readability and maintenance.
-    - [X] Create separate PHP files for functions related to settings, admin menu, and shipping methods adjustments.
-    - [ ] Ensure all files are well-documented with comments for clarity and future reference.
+### Development Progress
+- [ ] **Security**: Implement additional data validation and sanitization.
+- [ ] **Code Optimization**: Optimize data retrieval and storage methods.
   
-- [X] **Class-based Refactoring:** Transition function-based code to class-based structure to encapsulate related functionalities and promote OOP practices.
-  
-- [ ] **Security & Validation:** 
-    - [ ] Implement thorough data validation for settings inputs to prevent potential issues.
-    - [X] Implement nonces for form submissions to enhance security.
+### Feature Development
+- [ ] **UI Enhancements**: Improve the UI for settings and custom weight class management.
+- [ ] **Customer Notifications**: Implement customer alerts for shipping method alterations.
 
-- [ ] **Code Optimization:** 
-    - [ ] Review and optimize loops and condition checks.
-    - [X] Optimize data retrieval and storage methods.
+### Testing
+- [ ] **Unit Testing**: Develop and perform unit tests for various scenarios.
+- [ ] **Compatibility Testing**: Ensure compatibility with various WordPress and WooCommerce versions.
+- [ ] **UI/UX Testing**: Confirm seamless functionality across numerous themes.
 
-#### Feature Development
-- [ ] **Enhanced Weight Class Management:**
-    - [X] Develop UI to dynamically add, edit, or remove weight classes.
-    - [x] Allow for customization of delivery class names.
+### Documentation
+- [ ] **User Guide**: Create a user guide with graphical representations.
+- [ ] **Developer Docs**: Provide detailed developer documentation.
 
-- [ ] **Customer Notifications:**
-    - [ ] Implement customer notification/alert for shipping method adjustments based on weight.
+### Marketing and Release
+- [ ] **Landing Page**: Construct a website or landing page for the plugin.
+- [ ] **Promotion**: Develop and publish promotional materials and blog posts.
+- [ ] **WordPress Repository**: Submit the plugin to the WordPress plugin repository.
 
-- [ ] **Localization:**
-    - [ ] Implement localization/internationalization practices to make the plugin translatable.
-
-
-#### Testing
-- [ ] **Unit Testing:**
-    - [ ] Implement unit tests to validate all functionalities under various scenarios.
-    - [ ] Ensure accurate retrieval and application of shipping methods based on defined weight classes.
-
-- [ ] **Integration Testing:**
-    - [ ] Test compatibility with various versions of WordPress and WooCommerce.
-    - [ ] Test with various themes to ensure UI/UX consistency.
-
-- [ ] **User Testing:**
-    - [ ] Conduct user testing for UI/UX and usability validation.
-    - [ ] Gather feedback to identify areas for improvement or enhancement.
-
-#### Documentation & User Guide
-- [ ] **Plugin Documentation:**
-    - [ ] Create comprehensive documentation detailing setup, configuration, and troubleshooting.
-    - [ ] Include screenshots and step-by-step guides for various functionalities.
-
-- [ ] **Developer Documentation:**
-    - [ ] Detail development decisions, code structure, and extendability options for other developers.
-    - [ ] Ensure all code is well-commented and follows WordPress coding standards.
-
-#### Marketing & Release Preparation
-- [ ] **Website/Landing Page:**
-    - [ ] Create a landing page or website for the plugin to provide details, documentation, and download options.
-
-- [ ] **Promotion:**
-    - [ ] Create promotional material, blog posts, or news releases to announce the plugin.
-
-- [ ] **WordPress Repository Submission:**
-    - [ ] Prepare and submit the plugin to the WordPress plugin repository for wider accessibility.
-
-#### Continuous Improvement & Support
-- [ ] **User Feedback Collection:**
-    - [ ] Establish channels for collecting user feedback and reviews.
-
-- [ ] **Support:**
-    - [ ] Create support forums or channels to assist users with queries and issues.
-    - [ ] Develop a FAQ section based on encountered issues and queries.
-
-- [ ] **Updates & Maintenance:**
-    - [ ] Periodically review and update the plugin to ensure compatibility with the latest WordPress and WooCommerce versions.
-    - [ ] Implement enhancements and additional features based on user feedback.
+### Continuous Support and Improvement
+- [ ] **Feedback Collection**: Create a system for obtaining and managing user feedback.
+- [ ] **Customer Support**: Establish support channels and forums.
+- [ ] **Updates**: Regularly update for compatibility with latest WordPress and WooCommerce versions.
 
 ## Author
 
-- [Luke Hands](https://lukehands.net/)
+- [Luke Hands](https://lukehands.net/shipping)
 
 ## License
 
@@ -113,4 +73,4 @@ This project is licensed under the GPL-2.0 License.
 
 ## Acknowledgements
 
-This plugin was developed as a collaborative effort and with the guidance provided by the community. It is currently a work in progress and in its infant stages, but contributions and feedback are welcome to improve its functionalities and features.
+Acknowledging collaborative efforts and invaluable guidance from the community, this plugin is continuously evolving. Contributions and feedback are crucial and always welcomed to augment and refine the functionalities and features of this plugin.
