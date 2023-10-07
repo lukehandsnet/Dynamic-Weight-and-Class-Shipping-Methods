@@ -1,5 +1,5 @@
 <?php
-namespace SCBCW;
+namespace DWCSM;
 
 /**
  * Class Shipping_Method_Handler

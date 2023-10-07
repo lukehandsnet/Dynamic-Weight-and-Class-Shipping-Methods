@@ -1,5 +1,6 @@
 <?php
-namespace SCBCW;
+namespace DWCSM;
+;
 
 // Ensure direct access is blocked for security
 if (!defined('ABSPATH')) exit;
