@@ -28,7 +28,7 @@ class Admin_Settings_Handler {
 
     public function options_page() {
         // Check if form is submitted and nonce is valid
-        if (isset($_POST['your_settings_nonce_name']) && wp_verify_nonce($_POST['your_settings_nonce_name'], 'save_your_settings')) {
+        if (isset($_POST['asm_settings_nonce']) && wp_verify_nonce($_POST['asm_settings_nonce'], 'save_your_settings')) {
             // Process and save settings
             $this->save_settings($_POST);
         }
@@ -37,7 +37,7 @@ class Admin_Settings_Handler {
             <h2>Adjust Shipping Methods</h2>
             <?php
             // Nonce field
-            wp_nonce_field('save_your_settings', 'your_settings_nonce_name');
+            wp_nonce_field('save_your_settings', 'asm_settings_nonce');
             
             settings_fields('pluginPage');
             do_settings_sections('pluginPage');
@@ -60,7 +60,7 @@ class Admin_Settings_Handler {
     public function display_shipping_methods() {
         $shipping_zones = \WC_Shipping_Zones::get_zones();
         // Get saved settings
-        $saved_settings = get_option('your_option_name', []);
+        $saved_settings = get_option('asm_plugin_settings', []);
         echo '<h3>Available Shipping Methods</h3>';
         
         foreach( $shipping_zones as $zone ) {
@@ -93,7 +93,7 @@ class Admin_Settings_Handler {
 
     public function display_classes_with_checkboxes($method_id) {
         $shipping_classes = \WC()->shipping->get_shipping_classes();
-        $saved_settings = get_option('your_option_name', []);
+        $saved_settings = get_option('asm_plugin_settings', []);
         echo '<div class="shipping-classes">';
         echo '<strong>Available Classes:</strong> ';
         echo '<ul>';
@@ -113,7 +113,7 @@ class Admin_Settings_Handler {
     private function save_settings($data) {
         
         // Save settings using update_option
-        update_option('your_option_name', $data);
+        update_option('asm_plugin_settings', $data);
         error_log(print_r($data, true));
     }
     

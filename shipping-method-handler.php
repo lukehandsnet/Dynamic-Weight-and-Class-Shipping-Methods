@@ -11,7 +11,7 @@ class Shipping_Method_Handler {
         $cart_weight = $woocommerce->cart->cart_contents_weight;
         
         // Retrieve the saved settings
-        $saved_settings = get_option('your_option_name', []);
+        $saved_settings = get_option('asm_plugin_settings', []);
         
         foreach ($available_shipping_methods as $method_id => $method) {
             // Use $method->title if you used titles as keys, or adapt accordingly
