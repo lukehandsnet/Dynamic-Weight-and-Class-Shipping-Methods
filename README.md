@@ -25,12 +25,8 @@ Once installed and activated, the plugin will automatically adjust the available
 
 ## Settings
 
-The plugin settings can be accessed from the WordPress admin panel where three weight classes can be defined:
-- **Light Weight Limit:** Set the maximum weight for the light weight class.
-- **Medium Weight Limit:** Set the maximum weight for the medium weight class.
-- **Heavy Weight Limit:** Set the maximum weight for the heavy weight class.
 
-Each weight class can be associated with a delivery class (e.g., standard, express, freight).
+
 ## To-Do List: Shipping Class By Cart Weight WordPress Plugin
 ### Create Pipeline to update dev environment
 - [X] **Create Dev Branch** and **enforce policies** to only pull request into the dev branch.
@@ -62,8 +58,6 @@ Each weight class can be associated with a delivery class (e.g., standard, expre
 - [ ] **Localization:**
     - [ ] Implement localization/internationalization practices to make the plugin translatable.
 
-- [ ] **Multi-shipment Handling:**
-    - [ ] Implement handling and calculation for shipments that may need to be split due to weight constraints.
 
 #### Testing
 - [ ] **Unit Testing:**
