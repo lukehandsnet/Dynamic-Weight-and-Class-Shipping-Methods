@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) exit;
 // Include required handler classes to manage various aspects of the plugin functionality
 require_once('shipping-method-handler.php');  // Handle adjustments to available shipping methods
 require_once('admin-settings-handler.php');   // Manage admin settings page and settings initialization
-require_once('weight-class-handler.php');     // Handle the definitions and retrieval of weight classes
+
 
 /**
  * Class SCBCW_Plugin
@@ -34,7 +34,6 @@ class SCBCW_Plugin {
         // Instantiate the handler classes to manage different aspects of shipping method adjustments
         new Shipping_Method_Handler();  // Manages adjustments and conditions for available shipping methods
         new Admin_Settings_Handler();   // Manages the admin settings page and related functionality
-        new Weight_Class_Handler();     // Handles retrieving and defining weight classes
     }
 }
 
