@@ -1,17 +1,17 @@
 <?php
 /*
-Plugin Name: Shipping Class-By-Cart-Weight
+Plugin Name: Dynamic Weight and Class Shipping Methods
 Plugin URI: https://lukehands.net/
-Description: Adjusts available shipping methods based on cart weight.
+Description: Dynamically adjusts available WooCommerce shipping methods based on cart weight and shipping classes.
 Version: 1.0
 Author: Luke Hands
 Author URI: https://lukehands.net/
-Text Domain: adjust-shipping-methods
+Text Domain: dwcsm
 */
 
-namespace SCBCW;
+namespace DWCSM;
 
-// Ensure script is not accessed directly for security
+// Ensure the script is not accessed directly for enhanced security
 if (!defined('ABSPATH')) exit;
 
 // Include required handler classes to manage various aspects of the plugin functionality
@@ -20,13 +20,14 @@ require_once('admin-settings-handler.php');   // Manage admin settings page and 
 
 
 /**
- * Class SCBCW_Plugin
+ * Class DWCSM_Plugin
  *
- * Main class for the Shipping Class-By-Cart-Weight plugin. Initiates the handler classes upon creation.
+ * Main class for the Dynamic Weight and Class Shipping Methods plugin.
+ * Initiates the handler classes upon instantiation.
  */
-class SCBCW_Plugin {
+class DWCSM_Plugin {
     /**
-     * SCBCW_Plugin constructor.
+     * DWCSM_Plugin constructor.
      *
      * Initializes instances of the handler classes to set up the plugin functionality.
      */
@@ -38,4 +39,4 @@ class SCBCW_Plugin {
 }
 
 // Create an instance of the main plugin class, initializing the handler classes and setting up the plugin functionality
-new SCBCW_Plugin();
+new DWCSM_Plugin();
