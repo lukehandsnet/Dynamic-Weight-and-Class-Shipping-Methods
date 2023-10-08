@@ -20,6 +20,10 @@ class AdminSettingsHandler {
         add_action('admin_menu', [$this, 'add_admin_menu']);
         // Hook to initialize settings on the admin page
         add_action('admin_init', [$this, 'settings_init']);
+
+        add_filter('woocommerce_settings_tabs_array', [$this, 'add_settings_tab'], 50);
+        add_action('woocommerce_settings_tabs_dwsm_settings_tab', [$this, 'settings_tab']);
+        add_action('woocommerce_update_options_dwsm_settings_tab', [$this, 'update_settings']);
     }
 
     /**
@@ -164,6 +168,50 @@ class AdminSettingsHandler {
         update_option('asm_plugin_settings', $data);
         // Log data for debugging purposes
         error_log(print_r($data, true));
+    }
+    public function add_settings_tab($settings_tabs) {
+        $settings_tabs['dwsm_settings_tab'] = __('DWCSM Settings', 'dwsm-text-domain');
+        return $settings_tabs;
+    }
+
+    /**
+     * Uses the WooCommerce admin fields API to output settings via the $settings array.
+     */
+    public function settings_tab() {
+        woocommerce_admin_fields($this->get_settings());
+    }
+
+    /**
+     * Use the WooCommerce options API to save settings via the $settings array.
+     */
+    public function update_settings() {
+        woocommerce_update_options($this->get_settings());
+    }
+
+    /**
+     * Constructs an array of settings to be displayed on the settings tab, utilizing WooCommerce's settings API.
+     */
+    public function get_settings() {
+        $settings = [
+            'section_title' => [
+                'name' => __('Shipping Adjustment Settings', 'dwsm-text-domain'),
+                'type' => 'title',
+                'desc' => __('Adjust the shipping settings as per your requirements.', 'dwsm-text-domain'),
+                'id' => 'wc_dwsm_section_title'
+            ],
+            'example_text' => [
+                'name' => __('Minimum Weight', 'dwsm-text-domain'),
+                'type' => 'text',
+                'desc' => __('Minimum weight for a specific shipping class/method.', 'dwsm-text-domain'),
+                'id' => 'wc_dwsm_min_weight'
+            ],
+            // Additional settings can be added here in a similar format
+            'section_end' => [
+                'type' => 'sectionend',
+                'id' => 'wc_dwsm_section_end'
+            ]
+        ];
+        return apply_filters('wc_dwsm_settings', $settings);
     }
 }
 
