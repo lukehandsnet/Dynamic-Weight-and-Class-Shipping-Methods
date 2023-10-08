@@ -1,5 +1,4 @@
-// BEGIN: 8a5d3b1fjw4e
-
+<?php
 use PHPUnit\Framework\TestCase;
 use DWCSM\Shipping_Method_Handler;
 

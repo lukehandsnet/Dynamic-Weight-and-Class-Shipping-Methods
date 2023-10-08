@@ -1,0 +1,30 @@
+{
+    "name": "lukehands/dynamic-weight-class-shipping-methods",
+    "description": "A WordPress plugin that dynamically adjusts available shipping methods based on the cart weight in a WooCommerce store. Provides flexibility in managing various weight classes and assigning corresponding delivery classes.",
+    "type": "wordpress-plugin",
+    "require": {
+        "php": "^7.4||^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DWCSM\\": "src/DWCSM/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Luke Hands",
+            "email": "luke@lukehands.net",
+            "homepage": "https://lukehands.net/",
+            "role": "Developer"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "support": {
+        "email": "support@example.com",
+        "issues": "https://github.com/lukehands/dynamic-weight-class-shipping-methods/issues",
+        "source": "https://github.com/lukehands/dynamic-weight-class-shipping-methods"
+    },
+    "license": "GPL-2.0-or-later"
+}
