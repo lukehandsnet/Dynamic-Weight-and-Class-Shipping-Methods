@@ -6,7 +6,7 @@ namespace DWCSM;
  * 
  * Handles the adjustment of available shipping methods based on various conditions.
  */
-class Shipping_Method_Handler {
+class ShippingMethodHandler {
 
     /**
      * Shipping_Method_Handler constructor.

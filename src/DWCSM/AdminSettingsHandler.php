@@ -1,7 +1,5 @@
 <?php
 namespace DWCSM;
-;
-
 // Ensure direct access is blocked for security
 if (!defined('ABSPATH')) exit;
 
@@ -10,7 +8,7 @@ if (!defined('ABSPATH')) exit;
  *
  * Handles the administration settings page functionality.
  */
-class Admin_Settings_Handler {
+class AdminSettingsHandler {
     
     /**
      * Admin_Settings_Handler constructor.

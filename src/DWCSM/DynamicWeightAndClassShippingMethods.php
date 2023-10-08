@@ -15,8 +15,8 @@ namespace DWCSM;
 if (!defined('ABSPATH')) exit;
 
 // Include required handler classes to manage various aspects of the plugin functionality
-require_once('shipping-method-handler.php');  // Handle adjustments to available shipping methods
-require_once('admin-settings-handler.php');   // Manage admin settings page and settings initialization
+require_once('ShippingMethodHandler.php');  // Handle adjustments to available shipping methods
+require_once('AdminSettingsHandler.php');   // Manage admin settings page and settings initialization
 
 
 /**
@@ -33,8 +33,8 @@ class DWCSM_Plugin {
      */
     public function __construct() {
         // Instantiate the handler classes to manage different aspects of shipping method adjustments
-        new Shipping_Method_Handler();  // Manages adjustments and conditions for available shipping methods
-        new Admin_Settings_Handler();   // Manages the admin settings page and related functionality
+        new ShippingMethodHandler();  // Manages adjustments and conditions for available shipping methods
+        new AdminSettingsHandler();   // Manages the admin settings page and related functionality
     }
 }
 
