@@ -266,33 +266,33 @@ class AdminSettingsHandler {
     
         return apply_filters('wc_my_custom_settings', $settings);
     }
-
-
-    function display_shipping_classes_checkboxes($value) {
-        $shipping_classes = WC()->shipping->get_shipping_classes();
-        $saved_settings = get_option('asm_plugin_settings', []);
-        $saved_classes = $saved_settings['shipping_classes'][$value['method_id']] ?? array();
-    
-        echo '<tr valign="top">';
-        echo '<th scope="row" class="titledesc">';
-        echo '<label for="' . esc_attr($value['id']) . '">' . esc_html($value['name']) . '</label>';
-        echo '</th>';
-        echo '<td class="forminp">';
-        echo '<fieldset>';
-    
-        foreach($shipping_classes as $class) {
-            $checked = in_array($class->term_id, $saved_classes) ? ' checked="checked"' : '';
-            echo '<label for="' . esc_attr($value['id']) . '_' . esc_attr($class->term_id) . '">';
-            echo '<input name="' . esc_attr($value['id']) . '[]" id="' . esc_attr($value['id']) . '_' . esc_attr($class->term_id) . '" type="checkbox" style="" value="' . esc_attr($class->term_id) . '"' . $checked . ' /> ';
-            echo esc_html($class->name);
-            echo '</label><br />';
-        }
-    
-        echo '</fieldset>';
-        echo '</td>';
-        echo '</tr>';
-    }
 }
+
+function display_shipping_classes_checkboxes($value) {
+    $shipping_classes = WC()->shipping->get_shipping_classes();
+    $saved_settings = get_option('asm_plugin_settings', []);
+    $saved_classes = $saved_settings['shipping_classes'][$value['method_id']] ?? array();
+
+    echo '<tr valign="top">';
+    echo '<th scope="row" class="titledesc">';
+    echo '<label for="' . esc_attr($value['id']) . '">' . esc_html($value['name']) . '</label>';
+    echo '</th>';
+    echo '<td class="forminp">';
+    echo '<fieldset>';
+
+    foreach($shipping_classes as $class) {
+        $checked = in_array($class->term_id, $saved_classes) ? ' checked="checked"' : '';
+        echo '<label for="' . esc_attr($value['id']) . '_' . esc_attr($class->term_id) . '">';
+        echo '<input name="' . esc_attr($value['id']) . '[]" id="' . esc_attr($value['id']) . '_' . esc_attr($class->term_id) . '" type="checkbox" style="" value="' . esc_attr($class->term_id) . '"' . $checked . ' /> ';
+        echo esc_html($class->name);
+        echo '</label><br />';
+    }
+
+    echo '</fieldset>';
+    echo '</td>';
+    echo '</tr>';
+}
+
 
 /**
  * Retrieves the title of a shipping method given its method ID.
