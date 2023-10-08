@@ -24,7 +24,7 @@ class AdminSettingsHandler {
         add_filter('woocommerce_settings_tabs_array', [$this, 'add_settings_tab'], 50);
         add_action('woocommerce_settings_tabs_dwsm_settings_tab', [$this, 'settings_tab']);
         add_action('woocommerce_update_options_dwsm_settings_tab', [$this, 'update_settings']);
-        add_action('woocommerce_admin_field_shipping_classes_field', 'display_shipping_classes_checkboxes', 10, 1);
+        add_action('woocommerce_admin_field_shipping_classes_field', [$this,'display_shipping_classes_checkboxes'], 10, 1);
 
     }
 
