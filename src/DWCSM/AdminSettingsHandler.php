@@ -241,6 +241,14 @@ class AdminSettingsHandler {
                         'step' => 0.1
                     )
                 );
+                $settings['shipping_classes_' . $method->instance_id] = array(
+                    'name' => sprintf(__('Shipping Classes (%s)', 'my-text-domain'), $method->title),
+                    'type' => 'shipping_classes_field',
+                    'desc' => '',
+                    'id'   => 'wc_my_custom_shipping_classes_' . $method->instance_id,
+                    'method_id' => $method->instance_id,
+                    'default' => $saved_settings['shipping_classes'][$method->instance_id] ?? array(),
+                );
             }
     
             $settings['section_end_zone_' . $zone['zone_id']] = array(
@@ -255,6 +263,31 @@ class AdminSettingsHandler {
         );
     
         return apply_filters('wc_my_custom_settings', $settings);
+    }
+
+    function display_shipping_classes_checkboxes($value) {
+        $shipping_classes = WC()->shipping->get_shipping_classes();
+        $saved_settings = get_option('asm_plugin_settings', []);
+        $saved_classes = $saved_settings['shipping_classes'][$value['method_id']] ?? array();
+    
+        echo '<tr valign="top">';
+        echo '<th scope="row" class="titledesc">';
+        echo '<label for="' . esc_attr($value['id']) . '">' . esc_html($value['name']) . '</label>';
+        echo '</th>';
+        echo '<td class="forminp">';
+        echo '<fieldset>';
+    
+        foreach($shipping_classes as $class) {
+            $checked = in_array($class->term_id, $saved_classes) ? ' checked="checked"' : '';
+            echo '<label for="' . esc_attr($value['id']) . '_' . esc_attr($class->term_id) . '">';
+            echo '<input name="' . esc_attr($value['id']) . '[]" id="' . esc_attr($value['id']) . '_' . esc_attr($class->term_id) . '" type="checkbox" style="" value="' . esc_attr($class->term_id) . '"' . $checked . ' /> ';
+            echo esc_html($class->name);
+            echo '</label><br />';
+        }
+    
+        echo '</fieldset>';
+        echo '</td>';
+        echo '</tr>';
     }
 }
 
