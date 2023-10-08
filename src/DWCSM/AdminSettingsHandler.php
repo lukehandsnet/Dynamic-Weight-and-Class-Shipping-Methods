@@ -192,26 +192,69 @@ class AdminSettingsHandler {
      * Constructs an array of settings to be displayed on the settings tab, utilizing WooCommerce's settings API.
      */
     public function get_settings() {
-        $settings = [
-            'section_title' => [
-                'name' => __('Shipping Adjustment Settings', 'dwsm-text-domain'),
+        $settings = array(
+            'section_title' => array(
+                'name'     => __('Shipping Adjustment Settings', 'my-text-domain'),
+                'type'     => 'title',
+                'desc'     => '',
+                'id'       => 'wc_my_custom_settings_section_title'
+            ),
+        );
+        
+        // Retrieve shipping zones from WooCommerce
+        $shipping_zones = \WC_Shipping_Zones::get_zones();
+        // Retrieve previously saved settings from WP database
+        $saved_settings = get_option('asm_plugin_settings', []);
+    
+        // Iterate through each shipping zone
+        foreach( $shipping_zones as $zone ) {
+            $settings['zone_title_' . $zone['zone_id']] = array(
+                'name' => sprintf(__('Zone: %s', 'my-text-domain'), $zone['zone_name']),
                 'type' => 'title',
-                'desc' => __('Adjust the shipping settings as per your requirements.', 'dwsm-text-domain'),
-                'id' => 'wc_dwsm_section_title'
-            ],
-            'example_text' => [
-                'name' => __('Minimum Weight', 'dwsm-text-domain'),
-                'type' => 'text',
-                'desc' => __('Minimum weight for a specific shipping class/method.', 'dwsm-text-domain'),
-                'id' => 'wc_dwsm_min_weight'
-            ],
-            // Additional settings can be added here in a similar format
-            'section_end' => [
+                'desc' => '',
+                'id'   => 'wc_my_custom_zone_title_' . $zone['zone_id']
+            );
+            
+            // Iterate through each shipping method in the current zone
+            foreach( $zone['shipping_methods'] as $method ) {
+                $settings['min_weight_' . $method->instance_id] = array(
+                    'name' => sprintf(__('Min Weight (%s)', 'my-text-domain'), $method->title),
+                    'type' => 'number',
+                    'desc' => '',
+                    'id'   => 'wc_my_custom_min_weight_' . $method->instance_id,
+                    'css'  => '',
+                    'default' => $saved_settings['min_weight'][$method->instance_id] ?? '',
+                    'custom_attributes' => array(
+                        'min'  => 0,
+                        'step' => 0.1
+                    )
+                );
+                $settings['max_weight_' . $method->instance_id] = array(
+                    'name' => sprintf(__('Max Weight (%s)', 'my-text-domain'), $method->title),
+                    'type' => 'number',
+                    'desc' => '',
+                    'id'   => 'wc_my_custom_max_weight_' . $method->instance_id,
+                    'css'  => '',
+                    'default' => $saved_settings['max_weight'][$method->instance_id] ?? '',
+                    'custom_attributes' => array(
+                        'min'  => 0,
+                        'step' => 0.1
+                    )
+                );
+            }
+    
+            $settings['section_end_zone_' . $zone['zone_id']] = array(
                 'type' => 'sectionend',
-                'id' => 'wc_dwsm_section_end'
-            ]
-        ];
-        return apply_filters('wc_dwsm_settings', $settings);
+                'id' => 'wc_my_custom_settings_section_end_zone_' . $zone['zone_id']
+            );
+        }
+    
+        $settings['section_end'] = array(
+             'type' => 'sectionend',
+             'id' => 'wc_my_custom_settings_section_end'
+        );
+    
+        return apply_filters('wc_my_custom_settings', $settings);
     }
 }
 
