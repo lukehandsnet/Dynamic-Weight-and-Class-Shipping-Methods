@@ -204,7 +204,6 @@ class AdminSettingsHandler {
 
     public function display_shipping_classes_checkboxes($value) {
         $shipping_classes = WC()->shipping->get_shipping_classes();
-        $saved_settings = get_option('asm_plugin_settings', []);
         
         $saved_classes = $saved_settings['shipping_classes'][$value['method_id']] ?? array();
     
@@ -229,18 +228,3 @@ class AdminSettingsHandler {
     }
 }
 
-/**
- * Retrieves the title of a shipping method given its method ID.
- *
- * @param string $method_rate_id The method ID of the shipping method.
- * @return string|bool The title of the shipping method or false if the method ID is empty.
- */
-function get_title_shipping_method_from_method_id( $method_rate_id = '' ){
-    if( ! empty( $method_rate_id ) ){
-        $method_key_id = str_replace( ':', '_', $method_rate_id ); // Formatting method ID
-        $option_name = 'woocommerce_'.$method_key_id.'_settings'; // Constructing option name for retrieval
-        return get_option( $option_name, true )['title']; // Retrieving the title of the shipping method
-    } else {
-        return false;
-    }
-}
