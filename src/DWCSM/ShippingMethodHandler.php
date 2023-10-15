@@ -53,8 +53,10 @@ class ShippingMethodHandler {
             error_log('Is weight valid: ' . ($is_weight_valid ? 'true' : 'false'));
             // Check if the cart's shipping class is allowed for the current shipping method
             $is_class_valid = false;
+            
             // Check if $package['contents'][0]['data'] is set and is an object
             if (isset($package['contents'][0]['data']) && is_object($package['contents'][0]['data'])) {
+                error_log('Shipping class ID: ' . $package['contents'][0]['data']->get_shipping_class_id());
                 $is_class_valid = empty($allowed_classes) || 
                                   in_array($package['contents'][0]['data']->get_shipping_class_id(), $allowed_classes);
             }
