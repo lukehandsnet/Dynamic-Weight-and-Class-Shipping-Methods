@@ -131,10 +131,10 @@ class AdminSettingsHandler {
     public function get_settings() {
         $settings = array(
             'section_title' => array(
-                'name'     => __('Shipping Adjustment Settings', 'my-text-domain'),
+                'name'     => __('Shipping Adjustment Settings', 'DWCSM-text-domain'),
                 'type'     => 'title',
                 'desc'     => '',
-                'id'       => 'wc_my_custom_settings_section_title'
+                'id'       => 'DWCSM_settings_section_title'
             ),
         );
         
@@ -145,7 +145,7 @@ class AdminSettingsHandler {
         // Iterate through each shipping zone
         foreach( $shipping_zones as $zone ) {
             $settings['zone_title_' . $zone['zone_id']] = array(
-                'name' => sprintf(__('Zone: %s', 'my-text-domain'), $zone['zone_name']),
+                'name' => sprintf(__('Zone: %s', 'DWCSM-text-domain'), $zone['zone_name']),
                 'type' => 'title',
                 'desc' => '',
                 'id'   => 'wc_my_custom_zone_title_' . $zone['zone_id']
@@ -154,7 +154,7 @@ class AdminSettingsHandler {
             // Iterate through each shipping method in the current zone
             foreach( $zone['shipping_methods'] as $method ) {
                 $settings['min_weight_' . $method->instance_id] = array(
-                    'name' => sprintf(__('Min Weight (%s)', 'my-text-domain'), $method->title),
+                    'name' => sprintf(__('Min Weight (%s)', 'DWCSM-text-domain'), $method->title),
                     'type' => 'number',
                     'desc' => '',
                     'id'   => 'wc_my_custom_min_weight_' . $method->instance_id,
@@ -166,7 +166,7 @@ class AdminSettingsHandler {
                     )
                 );
                 $settings['max_weight_' . $method->instance_id] = array(
-                    'name' => sprintf(__('Max Weight (%s)', 'my-text-domain'), $method->title),
+                    'name' => sprintf(__('Max Weight (%s)', 'DWCSM-text-domain'), $method->title),
                     'type' => 'number',
                     'desc' => '',
                     'id'   => 'wc_my_custom_max_weight_' . $method->instance_id,
@@ -178,7 +178,7 @@ class AdminSettingsHandler {
                     )
                 );
                 $settings['shipping_classes_' . $method->instance_id] = array(
-                    'name' => sprintf(__('Shipping Classes (%s)', 'my-text-domain'), $method->title),
+                    'name' => sprintf(__('Shipping Classes (%s)', 'DWCSM-text-domain'), $method->title),
                     'type' => 'shipping_classes_field',
                     'desc' => '',
                     'id'   => 'wc_my_custom_shipping_classes_' . $method->instance_id,
