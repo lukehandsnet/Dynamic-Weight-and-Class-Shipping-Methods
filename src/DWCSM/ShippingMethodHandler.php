@@ -46,6 +46,8 @@ class ShippingMethodHandler {
             $max_weight = get_option($max_weight_key, null);
             $allowed_classes = get_option($shipping_classes_key, []);
             error_log('Allowed classes: ' . implode(', ', $allowed_classes));
+            error_log('Min weight: ' . $min_weight);
+            error_log('Max weight: ' . $max_weight);
             // Check if the cart weight is valid for the current shipping method
             $is_weight_valid = 
                 (is_null($min_weight) || $cart_weight >= $min_weight) && 
