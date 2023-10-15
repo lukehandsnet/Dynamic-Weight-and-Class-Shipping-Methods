@@ -122,7 +122,7 @@ class AdminSettingsHandler {
      * Use the WooCommerce options API to save settings via the $settings array.
      */
     public function update_settings() {
-        error_log(print_r($_POST, true));
+        
         woocommerce_update_options($this->get_settings());
     }
 
@@ -198,7 +198,7 @@ class AdminSettingsHandler {
              'type' => 'sectionend',
              'id' => 'wc_my_custom_settings_section_end'
         );
-    
+        error_log(print_r($_settings, true));
         return apply_filters('wc_my_custom_settings', $settings);
     }
 
