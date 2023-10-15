@@ -29,9 +29,10 @@ class ShippingMethodHandler {
         global $woocommerce;
         // Get the total weight of items in the cart
         $cart_weight = $woocommerce->cart->cart_contents_weight;
+        error_log('Cart weight: ' . $cart_weight);
         
         // Retrieve saved settings from the WordPress options table
-        $saved_settings = get_option('asm_plugin_settings', []);
+        //$saved_settings = get_option('asm_plugin_settings', []);
         
         // Loop through each available shipping method
         foreach ($available_shipping_methods as $method_id => $method) {
@@ -40,15 +41,19 @@ class ShippingMethodHandler {
             $min_weight = $saved_settings['min_weight'][$method->instance_id] ?? null;
             $max_weight = $saved_settings['max_weight'][$method->instance_id] ?? null;
             $allowed_classes = $saved_settings['shipping_classes'][$method->title] ?? [];
+            error_log('Min weight: ' . $min_weight);
+            error_log('Max weight: ' . $max_weight);
+            error_log('Allowed classes: ' . implode(', ', $allowed_classes));
             
             // Check if the cart weight is valid for the current shipping method
             $is_weight_valid = 
                 (is_null($min_weight) || $cart_weight >= $min_weight) && 
                 (is_null($max_weight) || $cart_weight <= $max_weight);
-            
+            error_log('Is weight valid: ' . ($is_weight_valid ? 'true' : 'false'));
             // Check if the cart's shipping class is allowed for the current shipping method
             $is_class_valid = false;
-            
+            error_log('is_class_valid: ' . ($is_class_valid ? 'true' : 'false'));
+            error_log('Package contents: ' . print_r($package['contents'], true));
             // Check if $package['contents'][0]['data'] is set and is an object
             if (isset($package['contents'][0]['data']) && is_object($package['contents'][0]['data'])) {
                 $is_class_valid = empty($allowed_classes) || 
