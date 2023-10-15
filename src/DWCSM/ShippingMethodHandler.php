@@ -57,10 +57,10 @@ class ShippingMethodHandler {
             $is_class_valid = false;
             
             // Check if $package['contents'][0]['data'] is set and is an object
-            error_log('Package contents: ' . print_r($package['contents'], true));
-            if (isset($package['contents'][0]['data']) && is_object($package['contents'][0]['data'])) {
+            error_log('Package contents: ' . print_r($package[0], true));
+            if (isset($package[0]['data']) && is_object($package[0]['data'])) {
                 $is_class_valid = empty($allowed_classes) || 
-                                  in_array($package['contents'][0]['data']->get_shipping_class_id(), $allowed_classes);
+                                  in_array($package[0]['data']->get_shipping_class_id(), $allowed_classes);
             }
             error_log('is_class_valid: ' . ($is_class_valid ? 'true' : 'false'));
             // If either the weight or class condition is not met, remove the shipping method from available methods
