@@ -198,7 +198,7 @@ class AdminSettingsHandler {
              'type' => 'sectionend',
              'id' => 'wc_my_custom_settings_section_end'
         );
-        error_log(print_r($_settings, true));
+        error_log(print_r($settings, true));
         return apply_filters('wc_my_custom_settings', $settings);
     }
 
