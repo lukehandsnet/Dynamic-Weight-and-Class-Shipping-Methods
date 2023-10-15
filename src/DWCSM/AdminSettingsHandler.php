@@ -3,6 +3,9 @@ namespace DWCSM;
 
 if (!defined('ABSPATH')) exit;
 
+/**
+ * Class AdminSettingsHandler handles the admin settings for the Dynamic Weight and Class Shipping Methods plugin.
+ */
 class AdminSettingsHandler {
 
     public function __construct() {
@@ -12,23 +15,45 @@ class AdminSettingsHandler {
         add_action('woocommerce_admin_field_shipping_classes_field', [$this,'display_shipping_classes_checkboxes'], 10, 1);
     }
 
+    /**
+     * Callback function for the settings section.
+     */
     public function settings_section_callback() {
         echo '<p>' . __('This section is for setting up the weight limits for different shipping methods.', 'adjust-shipping-methods') . '</p>';
     }
 
+    /**
+     * Adds a new settings tab to the WooCommerce settings page.
+     *
+     * @param array $settings_tabs An array of existing settings tabs.
+     * @return array An updated array of settings tabs.
+     */
     public function add_settings_tab($settings_tabs) {
         $settings_tabs['dwsm_settings_tab'] = __('DWCSM Settings', 'dwsm-text-domain');
         return $settings_tabs;
     }
 
+    /**
+     * Displays the settings tab in the admin panel.
+     *
+     * @return void
+     */
     public function settings_tab() {
         woocommerce_admin_fields($this->get_settings());
     }
 
+    /**
+     * Updates the settings for the Dynamic Weight and Class Shipping Methods plugin.
+     */
     public function update_settings() {
         woocommerce_update_options($this->get_settings());
     }
 
+    /**
+     * Retrieves the settings for the Dynamic Weight and Class Shipping Methods plugin.
+     *
+     * @return array An array of settings for the plugin.
+     */
     public function get_settings() {
 
         $settings = array(
@@ -102,12 +127,14 @@ class AdminSettingsHandler {
         return apply_filters('wc_dwcsm_settings', $settings);
     }
 
+    /**
+     * Displays the shipping classes checkboxes.
+     *
+     * @param mixed $value The value to display.
+     */
     public function display_shipping_classes_checkboxes($value) {
-        // this function is in new use
+
         $shipping_classes = WC()->shipping->get_shipping_classes();
-        
-        // Retrieve previously saved settings from WP database.
-        // Note: Ensure 'get_settings' function is properly retrieving your saved settings.  
         $saved_classes = get_option($value['id'], array());
     
         echo '<tr valign="top">';
