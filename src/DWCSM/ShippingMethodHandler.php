@@ -26,23 +26,18 @@ class ShippingMethodHandler {
      * @return array Modified list of available shipping methods.
      */
     function adjust_shipping_methods($available_shipping_methods, $package) {
-        global $woocommerce;
         // Get the total weight of items in the cart
-        $cart_weight = $woocommerce->cart->cart_contents_weight;
-        
-        // Retrieve saved settings from the WordPress options table
-        $saved_settings = get_option('asm_plugin_settings', []);
-        
+        $cart_weight = WC()->cart->cart_contents_weight;
+
         // Loop through each available shipping method
         foreach ($available_shipping_methods as $method_id => $method) {
             // Retrieve minimum and maximum weight and allowed shipping classes from saved settings
             // Also, ensure that if there's no setting, a default value is used
-            $min_weight = $saved_settings['min_weight'][$method->instance_id] ?? null;
-            $max_weight = $saved_settings['max_weight'][$method->instance_id] ?? null;
-            $allowed_classes = $saved_settings['shipping_classes'][$method->title] ?? [];
+            $min_weight = get_option('wc_dwcsm_min_weight_' . $method->instance_id, null);
+            $max_weight = get_option('wc_dwcsm_max_weight_' . $method->instance_id, null);
+            $allowed_classes = get_option('wc_dwcsm_shipping_classes_' . $method->instance_id, []);
             
             // Check if the cart weight is valid for the current shipping method
-            // Weight should be equal or higher than the minimum, and equal or less than the maximum
             $is_weight_valid = 
                 (is_null($min_weight) || $cart_weight >= $min_weight) && 
                 (is_null($max_weight) || $cart_weight <= $max_weight);
