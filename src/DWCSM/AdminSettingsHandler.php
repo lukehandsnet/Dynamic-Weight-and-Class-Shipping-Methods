@@ -41,30 +41,30 @@ class AdminSettingsHandler {
      *
      * @param string $method_id ID of the shipping method.
      */
-    public function display_classes_with_checkboxes($method_id) {
-        // Retrieve shipping classes from WooCommerce
-        $shipping_classes = \WC()->shipping->get_shipping_classes();
-        // Retrieve previously saved settings
-        $saved_settings = $this->get_settings();
+    // public function display_classes_with_checkboxes($method_id) {
+    //     // Retrieve shipping classes from WooCommerce
+    //     $shipping_classes = \WC()->shipping->get_shipping_classes();
+    //     // Retrieve previously saved settings
+    //     $saved_settings = $this->get_settings();
         
-        echo '<div class="shipping-classes">';
-        echo '<strong>Available Classes:</strong> ';
-        echo '<ul>';
+    //     echo '<div class="shipping-classes">';
+    //     echo '<strong>Available Classes:</strong> ';
+    //     echo '<ul>';
         
-        // Iterate through each shipping class
-        foreach ($shipping_classes as $class) {
-            // Determine if the checkbox should be checked based on saved settings
-            $is_checked = in_array($class->term_id, $saved_settings['shipping_classes'][$method_id] ?? []) ? 'checked' : '';
+    //     // Iterate through each shipping class
+    //     foreach ($shipping_classes as $class) {
+    //         // Determine if the checkbox should be checked based on saved settings
+    //         $is_checked = in_array($class->term_id, $saved_settings['shipping_classes'][$method_id] ?? []) ? 'checked' : '';
             
-            echo '<li>';
-            // Display checkbox and label for each shipping class
-            echo '<input type="checkbox" id="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '" name="shipping_classes[' . esc_attr($method_id) . '][]" value="' . esc_attr($class->term_id) . '" ' . $is_checked . ' />';
-            echo '<label for="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '">' . esc_html($class->name) . '</label>';
-            echo '</li>';
-        }
-        echo '</ul>';
-        echo '</div>';
-    }
+    //         echo '<li>';
+    //         // Display checkbox and label for each shipping class
+    //         echo '<input type="checkbox" id="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '" name="shipping_classes[' . esc_attr($method_id) . '][]" value="' . esc_attr($class->term_id) . '" ' . $is_checked . ' />';
+    //         echo '<label for="class_' . esc_attr($class->term_id) . '_method_' . esc_attr($method_id) . '">' . esc_html($class->name) . '</label>';
+    //         echo '</li>';
+    //     }
+    //     echo '</ul>';
+    //     echo '</div>';
+    // }
 
     public function add_settings_tab($settings_tabs) {
         $settings_tabs['dwsm_settings_tab'] = __('DWCSM Settings', 'dwsm-text-domain');
