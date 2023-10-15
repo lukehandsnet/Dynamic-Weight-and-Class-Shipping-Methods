@@ -35,46 +35,6 @@ class AdminSettingsHandler {
         echo '<p>' . __('This section is for setting up the weight limits for different shipping methods.', 'adjust-shipping-methods') . '</p>';
     }
 
-    /**
-     * Displays available shipping methods and corresponding settings fields on the settings page.
-     */
-    public function display_shipping_methods() {
-        // Retrieve shipping zones from WooCommerce
-        $shipping_zones = \WC_Shipping_Zones::get_zones();
-        // Retrieve previously saved settings from WP database
-        $saved_settings = get_option('asm_plugin_settings', []);
-        
-        echo '<h3>Available Shipping Methods</h3>';
-        
-        // Iterate through each shipping zone
-        foreach( $shipping_zones as $zone ) {
-            echo '<div class="shipping-zone">';
-            echo '<strong>' . esc_html($zone['zone_name']) . '</strong></br>';
-            echo '<ul>';
-            
-            // Iterate through each shipping method in the current zone
-            foreach( $zone['shipping_methods'] as $method ) {
-                // Retrieve previously saved min and max weights
-                $saved_min_weight = $saved_settings['min_weight'][$method->instance_id] ?? '';
-                $saved_max_weight = $saved_settings['max_weight'][$method->instance_id] ?? '';
-
-                echo '<li>';
-                echo '<div class="shipping-method">';
-                // Display shipping method title and input fields for min and max weights
-                echo '<strong>' . esc_html($method->title) . '</strong> - ';
-                echo 'Min Weight: <input type="text" name="min_weight[' . esc_attr($method->instance_id) . ']" value="' . esc_attr($saved_min_weight) . '" /> ';
-                echo 'Max Weight: <input type="text" name="max_weight[' . esc_attr($method->instance_id) . ']" value="' . esc_attr($saved_max_weight) . '" />';
-                echo '</div>';
-                
-                // Display available shipping classes with checkboxes
-                $this->display_classes_with_checkboxes($method->title);
-                
-                echo '</li>';
-            }
-            echo '</ul>';
-            echo '</div>';
-        }
-    }
 
     /**
      * Displays available shipping classes with checkboxes in the shipping method section.
