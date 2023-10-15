@@ -104,7 +104,6 @@ class AdminSettingsHandler {
         return apply_filters('wc_my_custom_settings', $settings);
     }
 
-    // [Continue with display_shipping_classes_checkboxes as before...]
     public function display_shipping_classes_checkboxes($value) {
         // this function is in new use
         $shipping_classes = WC()->shipping->get_shipping_classes();
@@ -112,6 +111,8 @@ class AdminSettingsHandler {
         // Retrieve previously saved settings from WP database.
         // Note: Ensure 'get_settings' function is properly retrieving your saved settings.  
         $saved_settings = get_option('woocommerce_my_custom_settings');
+        error_log(print_r("2222  SAVED SETTINGS BELOW", true));  // Logging POST data
+        error_log(print_r($saved_settings, true));  // Logging saved settings
         $saved_classes = $saved_settings['shipping_classes'][$value['method_id']] ?? array();
     
         echo '<tr valign="top">';
