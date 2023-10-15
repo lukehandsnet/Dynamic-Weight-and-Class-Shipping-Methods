@@ -56,13 +56,17 @@ class AdminSettingsHandler {
             );
 
             foreach( $zone['shipping_methods'] as $method ) {
+                $min_weight_key = 'wc_my_custom_min_weight_' . $method->instance_id;
+                $max_weight_key = 'wc_my_custom_max_weight_' . $method->instance_id;
+                $shipping_classes_key = 'wc_my_custom_shipping_classes_' . $method->instance_id;
+
                 $settings['min_weight_' . $method->instance_id] = array(
                     'name' => sprintf(__('Min Weight (%s)', 'DWCSM-text-domain'), $method->title),
                     'type' => 'number',
                     'desc' => '',
                     'id'   => 'wc_my_custom_min_weight_' . $method->instance_id,
                     'css'  => '',
-                    'default' => $saved_settings['min_weight_' . $method->instance_id] ?? '',
+                    'default' => get_option($min_weight_key, ''),
                     'custom_attributes' => array(
                         'min'  => 0,
                         'step' => 0.1
@@ -74,7 +78,7 @@ class AdminSettingsHandler {
                     'desc' => '',
                     'id'   => 'wc_my_custom_max_weight_' . $method->instance_id,
                     'css'  => '',
-                    'default' => $saved_settings['max_weight_' . $method->instance_id] ?? '',
+                    'default' => get_option($max_weight_key, ''),
                     'custom_attributes' => array(
                         'min'  => 0,
                         'step' => 0.1
@@ -86,7 +90,7 @@ class AdminSettingsHandler {
                     'desc' => '',
                     'id'   => 'wc_my_custom_shipping_classes_' . $method->instance_id,
                     'method_id' => $method->instance_id,
-                    'default' => $saved_settings['shipping_classes_' . $method->instance_id] ?? array(),
+                    'default' => get_option($shipping_classes_key, array()),
                 );
             }
     
@@ -111,8 +115,6 @@ class AdminSettingsHandler {
         // Retrieve previously saved settings from WP database.
         // Note: Ensure 'get_settings' function is properly retrieving your saved settings.  
         $saved_settings = get_option('woocommerce_my_custom_settings');
-        error_log(print_r("2222  SAVED SETTINGS BELOW", true));  // Logging POST data
-        error_log(print_r($saved_settings, true));  // Logging saved settings
         $saved_classes = $saved_settings['shipping_classes'][$value['method_id']] ?? array();
     
         echo '<tr valign="top">';
