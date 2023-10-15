@@ -32,7 +32,7 @@ class AdminSettingsHandler {
 
     public function get_settings() {
         // Retrieve previously saved settings from WP database.
-        $saved_settings = get_option('woocommerce_my_custom_settings', []);
+        $saved_settings = get_option('wc_my_custom_settings', []);
 
         $settings = array(
             'section_title' => array(
