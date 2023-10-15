@@ -122,6 +122,7 @@ class AdminSettingsHandler {
      * Use the WooCommerce options API to save settings via the $settings array.
      */
     public function update_settings() {
+        error_log(print_r($_POST, true));
         woocommerce_update_options($this->get_settings());
     }
 
@@ -203,6 +204,7 @@ class AdminSettingsHandler {
 
 
     public function display_shipping_classes_checkboxes($value) {
+        // this function is in new use
         $shipping_classes = WC()->shipping->get_shipping_classes();
         
         // Retrieve previously saved settings from WP database.
