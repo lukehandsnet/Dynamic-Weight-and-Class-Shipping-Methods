@@ -85,7 +85,7 @@ class AdminSettingsHandler {
         // Retrieve shipping classes from WooCommerce
         $shipping_classes = \WC()->shipping->get_shipping_classes();
         // Retrieve previously saved settings
-        $saved_settings = get_option('asm_plugin_settings', []);
+        $saved_settings = get_settings();
         
         echo '<div class="shipping-classes">';
         echo '<strong>Available Classes:</strong> ';
