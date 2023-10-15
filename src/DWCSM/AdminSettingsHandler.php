@@ -26,15 +26,10 @@ class AdminSettingsHandler {
     }
 
     public function update_settings() {
-        error_log(print_r($_POST, true));  // Logging POST data
         woocommerce_update_options($this->get_settings());
     }
 
     public function get_settings() {
-        // Retrieve previously saved settings from WP database.
-        $saved_settings = get_option('wc_my_custom_settings', []);
-        error_log(print_r("SAVED SETTINGS BELOW", true));  // Logging POST data
-        error_log(print_r($saved_settings, true));  // Logging saved settings
 
         $settings = array(
             'section_title' => array(
@@ -52,19 +47,19 @@ class AdminSettingsHandler {
                 'name' => sprintf(__('Zone: %s', 'DWCSM-text-domain'), $zone['zone_name']),
                 'type' => 'title',
                 'desc' => '',
-                'id'   => 'wc_my_custom_zone_title_' . $zone['zone_id']
+                'id'   => 'wc_dwcsm_zone_title_' . $zone['zone_id']
             );
 
             foreach( $zone['shipping_methods'] as $method ) {
-                $min_weight_key = 'wc_my_custom_min_weight_' . $method->instance_id;
-                $max_weight_key = 'wc_my_custom_max_weight_' . $method->instance_id;
-                $shipping_classes_key = 'wc_my_custom_shipping_classes_' . $method->instance_id;
+                $min_weight_key = 'wc_dwcsm_min_weight_' . $method->instance_id;
+                $max_weight_key = 'wc_dwcsm_max_weight_' . $method->instance_id;
+                $shipping_classes_key = 'wc_dwcsm_shipping_classes_' . $method->instance_id;
 
                 $settings['min_weight_' . $method->instance_id] = array(
                     'name' => sprintf(__('Min Weight (%s)', 'DWCSM-text-domain'), $method->title),
                     'type' => 'number',
                     'desc' => '',
-                    'id'   => 'wc_my_custom_min_weight_' . $method->instance_id,
+                    'id'   => 'wc_dwcsm_min_weight_' . $method->instance_id,
                     'css'  => '',
                     'default' => get_option($min_weight_key, ''),
                     'custom_attributes' => array(
@@ -76,7 +71,7 @@ class AdminSettingsHandler {
                     'name' => sprintf(__('Max Weight (%s)', 'DWCSM-text-domain'), $method->title),
                     'type' => 'number',
                     'desc' => '',
-                    'id'   => 'wc_my_custom_max_weight_' . $method->instance_id,
+                    'id'   => 'wc_dwcsm_max_weight_' . $method->instance_id,
                     'css'  => '',
                     'default' => get_option($max_weight_key, ''),
                     'custom_attributes' => array(
@@ -88,7 +83,7 @@ class AdminSettingsHandler {
                     'name' => sprintf(__('Shipping Classes (%s)', 'DWCSM-text-domain'), $method->title),
                     'type' => 'shipping_classes_field',
                     'desc' => '',
-                    'id'   => 'wc_my_custom_shipping_classes_' . $method->instance_id,
+                    'id'   => 'wc_dwcsm_shipping_classes_' . $method->instance_id,
                     'method_id' => $method->instance_id,
                     'default' => get_option($shipping_classes_key, array()),
                 );
@@ -96,16 +91,15 @@ class AdminSettingsHandler {
     
             $settings['section_end_zone_' . $zone['zone_id']] = array(
                 'type' => 'sectionend',
-                'id' => 'wc_my_custom_settings_section_end_zone_' . $zone['zone_id']
+                'id' => 'wc_dwcsm_settings_section_end_zone_' . $zone['zone_id']
             );
         }
     
         $settings['section_end'] = array(
              'type' => 'sectionend',
-             'id' => 'wc_my_custom_settings_section_end'
+             'id' => 'wc_dwcsm_settings_section_end'
         );
-        error_log(print_r($settings, true));  // Logging settings
-        return apply_filters('wc_my_custom_settings', $settings);
+        return apply_filters('wc_dwcsm_settings', $settings);
     }
 
     public function display_shipping_classes_checkboxes($value) {
@@ -114,7 +108,6 @@ class AdminSettingsHandler {
         
         // Retrieve previously saved settings from WP database.
         // Note: Ensure 'get_settings' function is properly retrieving your saved settings.  
-        $saved_settings = get_option('wc_my_custom_settings');
         $saved_classes = get_option($value['id'], array());
     
         echo '<tr valign="top">';
