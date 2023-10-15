@@ -45,25 +45,27 @@ class ShippingMethodHandler {
             $min_weight = get_option($min_weight_key, null);
             $max_weight = get_option($max_weight_key, null);
             $allowed_classes = get_option($shipping_classes_key, []);
-            error_log('Allowed classes: ' . implode(', ', $allowed_classes));
-            error_log('Min weight: ' . $min_weight);
-            error_log('Max weight: ' . $max_weight);
             // Check if the cart weight is valid for the current shipping method
             $is_weight_valid = 
                 (is_null($min_weight) || $cart_weight >= $min_weight) && 
                 (is_null($max_weight) || $cart_weight <= $max_weight);
-            error_log('Is weight valid: ' . ($is_weight_valid ? 'true' : 'false'));
             // Check if the cart's shipping class is allowed for the current shipping method
             $is_class_valid = false;
             
             // Check if $package['contents'][0]['data'] is set and is an object
-            error_log('Package contents: ' . print_r(array_values($package['contents'])[0], true));
+
+            // TODO: check if there is more than one product type in the cart
+            $cart_product_shipping_classes = array();
+            foreach ($package['contents'] as $cart_item) {
+                // add each shipping id to the array
+                $cart_product_shipping_classes[] = $cart_item['data']->get_shipping_class_id();
+            }
+            error_log('Cart shipping classes: ' . implode(', ', $cart_product_shipping_classes));
+
             if (isset(array_values($package['contents'])[0]['data']) && is_object(array_values($package['contents'])[0]['data'])) {
-                error_log('Package contents: ' . print_r(array_values($package['contents'])[0]['data']->get_shipping_class_id(), true));
                 $is_class_valid = empty($allowed_classes) || 
                                   in_array(array_values($package['contents'])[0]['data']->get_shipping_class_id(), $allowed_classes);
             }
-            error_log('is_class_valid: ' . ($is_class_valid ? 'true' : 'false'));
             // If either the weight or class condition is not met, remove the shipping method from available methods
             if (!$is_weight_valid || !$is_class_valid) {
                 unset($available_shipping_methods[$method_id]);
