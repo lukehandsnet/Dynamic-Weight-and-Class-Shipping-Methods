@@ -17,7 +17,7 @@ class AdminSettingsHandler {
      */
     public function __construct() {
         // Hook to add a settings page to the WordPress admin menu
-        add_action('admin_menu', [$this, 'add_admin_menu']);
+        //add_action('admin_menu', [$this, 'add_admin_menu']);
         // Hook to initialize settings on the admin page
         add_action('admin_init', [$this, 'settings_init']);
 
@@ -28,13 +28,13 @@ class AdminSettingsHandler {
 
     }
 
-    /**
-     * Adds the settings page to the WordPress admin menu.
-     */
-    public function add_admin_menu() {
-        // Add a new settings page under the "Settings" tab in WP Admin
-        add_options_page('Adjust Shipping Methods', 'Adjust Shipping Methods', 'manage_options', 'adjust_shipping_methods', [$this, 'options_page']);
-    }
+    // /**
+    //  * Adds the settings page to the WordPress admin menu.
+    //  */
+    // public function add_admin_menu() {
+    //     // Add a new settings page under the "Settings" tab in WP Admin
+    //     add_options_page('Adjust Shipping Methods', 'Adjust Shipping Methods', 'manage_options', 'adjust_shipping_methods', [$this, 'options_page']);
+    // }
 
     /**
      * Initializes settings by registering settings and adding settings section.
@@ -55,6 +55,7 @@ class AdminSettingsHandler {
     /**
      * Renders the options/settings page and handles the form submission.
      */
+    /*
     public function options_page() {
         // Check for POST request and verify nonce for security
         if (isset($_POST['asm_settings_nonce']) && wp_verify_nonce($_POST['asm_settings_nonce'], 'save_your_settings')) {
@@ -81,6 +82,7 @@ class AdminSettingsHandler {
         </form>
         <?php
     }
+    */
 
     /**
      * Callback function for settings section description.
@@ -271,6 +273,7 @@ class AdminSettingsHandler {
     public function display_shipping_classes_checkboxes($value) {
         $shipping_classes = WC()->shipping->get_shipping_classes();
         $saved_settings = get_option('asm_plugin_settings', []);
+        
         $saved_classes = $saved_settings['shipping_classes'][$value['method_id']] ?? array();
     
         echo '<tr valign="top">';
