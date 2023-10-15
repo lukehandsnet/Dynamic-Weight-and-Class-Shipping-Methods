@@ -1,34 +1,17 @@
 <?php
 namespace DWCSM;
-// Ensure direct access is blocked for security
+
 if (!defined('ABSPATH')) exit;
 
-/**
- * Class Admin_Settings_Handler
- *
- * Handles the administration settings page functionality.
- */
 class AdminSettingsHandler {
-    
-    /**
-     * Admin_Settings_Handler constructor.
-     *
-     * Hooks into WordPress to add actions.
-     */
+
     public function __construct() {
-        // Hook to add a settings page to the WordPress admin menu
-        //add_action('admin_menu', [$this, 'add_admin_menu']);
-        // Hook to initialize settings on the admin page
         add_filter('woocommerce_settings_tabs_array', [$this, 'add_settings_tab'], 50);
         add_action('woocommerce_settings_tabs_dwsm_settings_tab', [$this, 'settings_tab']);
         add_action('woocommerce_update_options_dwsm_settings_tab', [$this, 'update_settings']);
         add_action('woocommerce_admin_field_shipping_classes_field', [$this,'display_shipping_classes_checkboxes'], 10, 1);
-
     }
 
-    /**
-     * Callback function for settings section description.
-     */
     public function settings_section_callback() {
         echo '<p>' . __('This section is for setting up the weight limits for different shipping methods.', 'adjust-shipping-methods') . '</p>';
     }
@@ -38,26 +21,19 @@ class AdminSettingsHandler {
         return $settings_tabs;
     }
 
-    /**
-     * Uses the WooCommerce admin fields API to output settings via the $settings array.
-     */
     public function settings_tab() {
         woocommerce_admin_fields($this->get_settings());
     }
 
-    /**
-     * Use the WooCommerce options API to save settings via the $settings array.
-     */
     public function update_settings() {
-        // print_r($_POST); out to the error log to see what is being saved
-        error_log(print_r($_POST, true));
+        error_log(print_r($_POST, true));  // Logging POST data
         woocommerce_update_options($this->get_settings());
     }
 
-    /**
-     * Constructs an array of settings to be displayed on the settings tab, utilizing WooCommerce's settings API.
-     */
     public function get_settings() {
+        // Retrieve previously saved settings from WP database.
+        $saved_settings = get_option('woocommerce_my_custom_settings', []);
+
         $settings = array(
             'section_title' => array(
                 'name'     => __('Shipping Adjustment Settings', 'DWCSM-text-domain'),
@@ -67,11 +43,8 @@ class AdminSettingsHandler {
             ),
         );
         
-        // Retrieve shipping zones from WooCommerce
         $shipping_zones = \WC_Shipping_Zones::get_zones();
-        // Retrieve previously saved settings from WP database
-    
-        // Iterate through each shipping zone
+
         foreach( $shipping_zones as $zone ) {
             $settings['zone_title_' . $zone['zone_id']] = array(
                 'name' => sprintf(__('Zone: %s', 'DWCSM-text-domain'), $zone['zone_name']),
@@ -79,8 +52,7 @@ class AdminSettingsHandler {
                 'desc' => '',
                 'id'   => 'wc_my_custom_zone_title_' . $zone['zone_id']
             );
-            
-            // Iterate through each shipping method in the current zone
+
             foreach( $zone['shipping_methods'] as $method ) {
                 $settings['min_weight_' . $method->instance_id] = array(
                     'name' => sprintf(__('Min Weight (%s)', 'DWCSM-text-domain'), $method->title),
@@ -88,7 +60,7 @@ class AdminSettingsHandler {
                     'desc' => '',
                     'id'   => 'wc_my_custom_min_weight_' . $method->instance_id,
                     'css'  => '',
-                    'default' => $saved_settings['min_weight'][$method->instance_id] ?? '',
+                    'default' => $saved_settings['min_weight_' . $method->instance_id] ?? '',
                     'custom_attributes' => array(
                         'min'  => 0,
                         'step' => 0.1
@@ -100,7 +72,7 @@ class AdminSettingsHandler {
                     'desc' => '',
                     'id'   => 'wc_my_custom_max_weight_' . $method->instance_id,
                     'css'  => '',
-                    'default' => $saved_settings['max_weight'][$method->instance_id] ?? '',
+                    'default' => $saved_settings['max_weight_' . $method->instance_id] ?? '',
                     'custom_attributes' => array(
                         'min'  => 0,
                         'step' => 0.1
@@ -112,7 +84,7 @@ class AdminSettingsHandler {
                     'desc' => '',
                     'id'   => 'wc_my_custom_shipping_classes_' . $method->instance_id,
                     'method_id' => $method->instance_id,
-                    'default' => $saved_settings['shipping_classes'][$method->instance_id] ?? array(),
+                    'default' => $saved_settings['shipping_classes_' . $method->instance_id] ?? array(),
                 );
             }
     
@@ -126,11 +98,11 @@ class AdminSettingsHandler {
              'type' => 'sectionend',
              'id' => 'wc_my_custom_settings_section_end'
         );
-        error_log(print_r($settings, true));
+        error_log(print_r($settings, true));  // Logging settings
         return apply_filters('wc_my_custom_settings', $settings);
     }
 
-
+    // [Continue with display_shipping_classes_checkboxes as before...]
     public function display_shipping_classes_checkboxes($value) {
         // this function is in new use
         $shipping_classes = WC()->shipping->get_shipping_classes();
