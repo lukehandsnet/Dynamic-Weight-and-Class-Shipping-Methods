@@ -114,7 +114,7 @@ class AdminSettingsHandler {
         
         // Retrieve previously saved settings from WP database.
         // Note: Ensure 'get_settings' function is properly retrieving your saved settings.  
-        $saved_settings = get_option('woocommerce_my_custom_settings');
+        $saved_settings = get_option('wc_my_custom_settings');
         $saved_classes = $saved_settings['shipping_classes'][$value['method_id']] ?? array();
     
         echo '<tr valign="top">';
