@@ -57,8 +57,9 @@ class ShippingMethodHandler {
             $is_class_valid = false;
             
             // Check if $package['contents'][0]['data'] is set and is an object
-            error_log('Package contents: ' . print_r($package, true));
+            
             if (isset($package['contents'][0]['data']) && is_object($package['contents'][0]['data'])) {
+                error_log('Package contents: ' . print_r($package['contents'][0]['data']->get_shipping_class_id(), true));
                 $is_class_valid = empty($allowed_classes) || 
                                   in_array($package['contents'][0]['data']->get_shipping_class_id(), $allowed_classes);
             }
