@@ -32,7 +32,7 @@ class ShippingMethodHandler {
         error_log('Cart weight: ' . $cart_weight);
         
         // Retrieve saved settings from the WordPress options table
-        $saved_settings = get_option('asm_plugin_settings', []);
+        //$saved_settings = get_option('asm_plugin_settings', []);
         
         // Loop through each available shipping method
         foreach ($available_shipping_methods as $method_id => $method) {
@@ -58,9 +58,9 @@ class ShippingMethodHandler {
             
             // Check if $package['contents'][0]['data'] is set and is an object
             error_log('Package contents: ' . print_r($package, true));
-            if (isset($package[0]['data']) && is_object($package[0]['data'])) {
+            if (isset($package['contents'][0]['data']) && is_object($package['contents'][0]['data'])) {
                 $is_class_valid = empty($allowed_classes) || 
-                                  in_array($package[0]['data']->get_shipping_class_id(), $allowed_classes);
+                                  in_array($package['contents'][0]['data']->get_shipping_class_id(), $allowed_classes);
             }
             error_log('is_class_valid: ' . ($is_class_valid ? 'true' : 'false'));
             // If either the weight or class condition is not met, remove the shipping method from available methods
