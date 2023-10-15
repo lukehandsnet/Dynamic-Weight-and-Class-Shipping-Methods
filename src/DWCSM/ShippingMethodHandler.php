@@ -32,19 +32,19 @@ class ShippingMethodHandler {
         error_log('Cart weight: ' . $cart_weight);
         
         // Retrieve saved settings from the WordPress options table
-        //$saved_settings = get_option('asm_plugin_settings', []);
+        $saved_settings = get_option('asm_plugin_settings', []);
         
         // Loop through each available shipping method
         foreach ($available_shipping_methods as $method_id => $method) {
             // Retrieve minimum and maximum weight and allowed shipping classes from saved settings
             // Also, ensure that if there's no setting, a default value is used
-            $min_weight = $saved_settings['min_weight'][$method->instance_id] ?? null;
-            $max_weight = $saved_settings['max_weight'][$method->instance_id] ?? null;
-            $allowed_classes = $saved_settings['shipping_classes'][$method->title] ?? [];
-            error_log('Min weight: ' . $min_weight);
-            error_log('Max weight: ' . $max_weight);
-            error_log('Allowed classes: ' . implode(', ', $allowed_classes));
+            $min_weight_key = 'wc_dwcsm_min_weight_' . $method->instance_id;
+            $max_weight_key = 'wc_dwcsm_max_weight_' . $method->instance_id;
+            $shipping_classes_key = 'wc_dwcsm_shipping_classes_' . $method->instance_id;
             
+            $min_weight = get_option($min_weight_key, null);
+            $max_weight = get_option($max_weight_key, null);
+            $allowed_classes = get_option($shipping_classes_key, []);
             // Check if the cart weight is valid for the current shipping method
             $is_weight_valid = 
                 (is_null($min_weight) || $cart_weight >= $min_weight) && 
