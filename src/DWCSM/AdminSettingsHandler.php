@@ -19,8 +19,6 @@ class AdminSettingsHandler {
         // Hook to add a settings page to the WordPress admin menu
         //add_action('admin_menu', [$this, 'add_admin_menu']);
         // Hook to initialize settings on the admin page
-        add_action('admin_init', [$this, 'settings_init']);
-
         add_filter('woocommerce_settings_tabs_array', [$this, 'add_settings_tab'], 50);
         add_action('woocommerce_settings_tabs_dwsm_settings_tab', [$this, 'settings_tab']);
         add_action('woocommerce_update_options_dwsm_settings_tab', [$this, 'update_settings']);
@@ -28,61 +26,7 @@ class AdminSettingsHandler {
 
     }
 
-    // /**
-    //  * Adds the settings page to the WordPress admin menu.
-    //  */
-    // public function add_admin_menu() {
-    //     // Add a new settings page under the "Settings" tab in WP Admin
-    //     add_options_page('Adjust Shipping Methods', 'Adjust Shipping Methods', 'manage_options', 'adjust_shipping_methods', [$this, 'options_page']);
-    // }
-
-    /**
-     * Initializes settings by registering settings and adding settings section.
-     */
-    public function settings_init() {
-        // Register the setting so WordPress understands which settings to store
-        register_setting('pluginPage', 'asm_settings');
-
-        // Add a new settings section within the settings page
-        add_settings_section(
-            'asm_pluginPage_section',
-            __('Adjust the weight classes and corresponding delivery classes.', 'adjust-shipping-methods'),
-            [$this, 'settings_section_callback'],
-            'pluginPage'
-        );
-    }
-
-    /**
-     * Renders the options/settings page and handles the form submission.
-     */
-    /*
-    public function options_page() {
-        // Check for POST request and verify nonce for security
-        if (isset($_POST['asm_settings_nonce']) && wp_verify_nonce($_POST['asm_settings_nonce'], 'save_your_settings')) {
-            // Save settings on form submission
-            $this->save_settings($_POST);
-        }
-        ?>
-        <!-- HTML for the form on the settings page -->
-        <form action='' method='post'>
-            <h2>Adjust Shipping Methods</h2>
-            <?php
-            // Adds nonce to form for security
-            wp_nonce_field('save_your_settings', 'asm_settings_nonce');
-            
-            settings_fields('pluginPage');
-            do_settings_sections('pluginPage');
-            
-            // Displays available shipping methods on the settings page
-            $this->display_shipping_methods();
-            
-            // Add a submit button to the form
-            submit_button();
-            ?>
-        </form>
-        <?php
-    }
-    */
+    
 
     /**
      * Callback function for settings section description.
@@ -162,17 +106,6 @@ class AdminSettingsHandler {
         echo '</div>';
     }
 
-    /**
-     * Saves settings to the WordPress database.
-     *
-     * @param array $data The data from the form submission to save.
-     */
-    private function save_settings($data) {
-        // Save settings using WordPress option API
-        update_option('asm_plugin_settings', $data);
-        // Log data for debugging purposes
-        error_log(print_r($data, true));
-    }
     public function add_settings_tab($settings_tabs) {
         $settings_tabs['dwsm_settings_tab'] = __('DWCSM Settings', 'dwsm-text-domain');
         return $settings_tabs;
@@ -208,7 +141,6 @@ class AdminSettingsHandler {
         // Retrieve shipping zones from WooCommerce
         $shipping_zones = \WC_Shipping_Zones::get_zones();
         // Retrieve previously saved settings from WP database
-        $saved_settings = get_option('asm_plugin_settings', []);
     
         // Iterate through each shipping zone
         foreach( $shipping_zones as $zone ) {
