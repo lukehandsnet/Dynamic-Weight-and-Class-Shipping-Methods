@@ -61,7 +61,7 @@ class ShippingMethodHandler {
                 $cart_product_shipping_classes[] = $cart_item['data']->get_shipping_class_id();
             }
             error_log('Cart shipping classes: ' . implode(', ', $cart_product_shipping_classes));
-
+            error_log('Allowed shipping classes: ' . implode(', ', $allowed_classes));
             if (isset(array_values($package['contents'])[0]['data']) && is_object(array_values($package['contents'])[0]['data'])) {
                 $is_class_valid = empty($allowed_classes) || 
                                   in_array(array_values($package['contents'])[0]['data']->get_shipping_class_id(), $allowed_classes);
