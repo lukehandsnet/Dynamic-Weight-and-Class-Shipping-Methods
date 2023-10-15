@@ -33,6 +33,8 @@ class AdminSettingsHandler {
     public function get_settings() {
         // Retrieve previously saved settings from WP database.
         $saved_settings = get_option('wc_my_custom_settings', []);
+        error_log(print_r("SAVED SETTINGS BELOW", true));  // Logging POST data
+        error_log(print_r($saved_settings, true));  // Logging saved settings
 
         $settings = array(
             'section_title' => array(
