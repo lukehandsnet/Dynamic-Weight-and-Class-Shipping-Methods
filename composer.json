@@ -1,10 +1,24 @@
 {
-    "name": "lukehands/dynamic-weight-class-shipping-methods",
-    "description": "A WordPress plugin that dynamically adjusts available shipping methods based on the cart weight in a WooCommerce store. Provides flexibility in managing various weight classes and assigning corresponding delivery classes.",
+    "name": "lukehandsnet/dynamic-weight-and-class-shipping-methods",
+    "description": "WooCommerce plugin for dynamic shipping methods based on weight and class",
     "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Luke Hands",
+            "email": "luke@lukehands.net",
+            "homepage": "https://lukehands.net"
+        }
+    ],
     "require": {
-        "php": "^7.4||^8.0",
-        "doctrine/persistence": "^3.2"
+        "php": ">=7.4",
+        "composer/installers": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpstan/phpstan": "^1.10",
+        "wp-coding-standards/wpcs": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -16,23 +30,19 @@
             "DWCSM\\Tests\\": "tests/"
         }
     },
-    "authors": [
-        {
-            "name": "Luke Hands",
-            "email": "luke@lukehands.net",
-            "homepage": "https://lukehands.net/",
-            "role": "Developer"
+    "scripts": {
+        "test": "phpunit",
+        "phpcs": "phpcs",
+        "phpstan": "phpstan analyse",
+        "check": [
+            "@test",
+            "@phpcs",
+            "@phpstan"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
         }
-    ],
-    "require-dev": {
-        "phpunit/phpunit": "^10.0",
-        "10up/wp_mock": "^0.4.2",
-        "mockery/mockery": "^1.6"
-    },
-    "support": {
-        "email": "support@example.com",
-        "issues": "https://github.com/lukehands/dynamic-weight-class-shipping-methods/issues",
-        "source": "https://github.com/lukehands/dynamic-weight-class-shipping-methods"
-    },
-    "license": "GPL-2.0-or-later"
+    }
 }
